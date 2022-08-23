@@ -20,3 +20,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 });
+
+Route::get('/ventas/nueva-venta', function () {
+    return view('ventas.nueva-venta');
+});
+
+Route::get('/ventas/listado-ventas', function () {
+    return view('ventas.listado-ventas');
+});

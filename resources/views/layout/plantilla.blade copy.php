@@ -7,17 +7,11 @@
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Select2 -->
-  <link rel="stylesheet" href="{{ asset('admin/plugins/select2/select2.min.css') }}" />
-  <link rel="stylesheet" href="{{ asset('admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}" />
-  <!-- DataTables -->
-  <link rel="stylesheet" href=" {{ asset('admin/plugins/datatables-bs4/dataTables.bootstrap4.min.css') }}">
-  <link rel="stylesheet" href=" {{ asset('admin/plugins/datatables-responsive/responsive.bootstrap4.min.css') }}">
-  <link rel="stylesheet" href=" {{ asset('admin/plugins/datatables-buttons/buttons.bootstrap4.min.css') }}">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{ asset('admin/plugins/fontawesome-free/css/all.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('admin/css/adminlte.min.css') }}">
+  
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -204,157 +198,6 @@
                with font-awesome or any other icon font library -->
           
             <!-- *** Agregar items de menu aqui *** -->
-            <!-- Ventas -->
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-edit"></i>
-                <p>
-                  Ventas
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Agregar Venta</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Ventas Realizadas</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-
-            <!-- Productos -->
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-edit"></i>
-                <p>
-                  Productos
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Agregar Producto</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Lista de Productos</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-
-            <!-- Pedidos -->
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-edit"></i>
-                <p>
-                  Pedidos
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Agregar Pedido</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Lista de Pedidos</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-
-            <!-- Proveedores -->
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-edit"></i>
-                <p>
-                  Proveedores
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Agregar Proveedor</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Lista de Proveedores</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-
-            <!-- Usuarios -->
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-edit"></i>
-                <p>
-                  Usuarios
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Agregar Usuario</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Lista de Usuarios</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-
-            <!-- Roles -->
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-edit"></i>
-                <p>
-                  Roles
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Agregar Rol</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Lista de Roles</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-
-            <!-- Informes -->
 
         </ul>
       </nav>
@@ -388,7 +231,6 @@
       <div class="container-fluid">
 
         <!-- *** Agregar contenido aqui *** -->
-        @yield('content')
         
       </div><!-- /.container-fluid -->
     </section>
@@ -415,48 +257,5 @@
 <script src="{{ asset('admin/plugins/jquery/jquery.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('admin/js/adminlte.js') }}"></script>
-
-<!-- Select2 -->
-<script src="{{asset('admin/plugins/select2/select2.full.min.js')}}"></script>
-<script>
-    $(function() {
-
-    //Initialize Select2 Elements
-    $('.select2').select2()
-
-    //Initialize Select2 Elements
-    $('.select2bs4').select2({
-    theme: 'bootstrap4'
-    })
-
-    });
-</script>
-
-<!-- DataTables  & Plugins -->
-<script src="{{ asset('admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('admin/plugins/datatables-bs4/dataTables.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('admin/plugins/datatables-responsive/dataTables.responsive.min.js') }}"></script>
-<script src="{{ asset('admin/plugins/datatables-responsive/responsive.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('admin/plugins/datatables-buttons/dataTables.buttons.min.js') }}"></script>
-<script src="{{ asset('admin/plugins/datatables-buttons/buttons.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('admin/plugins/datatables-buttons/buttons.html5.min.js') }}"></script>
-<script src="{{ asset('admin/plugins/datatables-buttons/buttons.print.min.js') }}"></script>
-<script src="{{ asset('admin/plugins/datatables-buttons/buttons.colVis.min.js') }}"></script>
-
-<!-- Page specific script -->
-<script>
-  $(function () {
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
-</script>
-
 </body>
 </html>
