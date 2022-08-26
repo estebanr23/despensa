@@ -1,16 +1,15 @@
 @extends('layout.plantilla')
 
-@section('title', 'Listado Ventas')
-
+@section('title', 'Nuevo Producto')
+    
 @section('content')
-    <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
         <div class="row">
             <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                <h3 class="card-title">Lista de Ventas Realizadas</h3>
+                <h3 class="card-title">Lista de Pedidos</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -18,10 +17,10 @@
                     <thead>
                     <tr>
                     <th>Codigo</th>
-                    <th>Fecha</th>
-                    <th>Hora</th>
-                    <th>Total</th>
-                    <th>Usuario</th>
+                    <th>Nombre</th>
+                    <th>Categoria</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
                     {{-- <th>Acciones</th> --}}
                     </tr>
                     </thead>
@@ -276,10 +275,10 @@
                     <tfoot>
                     <tr>
                     <th>Codigo</th>
-                    <th>Fecha</th>
-                    <th>Hora</th>
-                    <th>Total</th>
-                    <th>Usuario</th>
+                    <th>Nombre</th>
+                    <th>Categoria</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
                     {{-- <th>Acciones</th> --}}
                     </tr>
                     </tfoot>

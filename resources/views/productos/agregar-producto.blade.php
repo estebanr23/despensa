@@ -1,7 +1,7 @@
 @extends('layout.plantilla')
 
-@section('title', 'Nueva venta')
-
+@section('title', 'Nuevo Producto')
+    
 @section('content')
     <section class="content">
         <div class="container-fluid">
@@ -9,7 +9,7 @@
             <div class="card card-default">
                 <div class="card-header">
                 <h3 class="card-title">Select2 (Default Theme)</h3>
-    
+
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
                     <i class="fas fa-minus"></i>
@@ -24,55 +24,52 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Producto</label>
-                            <select class="form-control select2" style="width: 100%;">
-                            <option selected="selected">Alabama</option>
-                            <option>Alaska</option>
-                            <option>California</option>
-                            <option>Delaware</option>
-                            <option>Tennessee</option>
-                            <option>Texas</option>
-                            <option>Washington</option>
-                            </select>
+                            <label for="exampleInputEmail1">Codigo</label>
+                            <input type="text" class="form-control" id="codigo_producto" placeholder="Codigo de Producto">
                         </div>
                         <!-- /.form-group -->
+
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Cantidad</label>
-                            <input type="number" class="form-control" id="cant_producto" placeholder="Cantidad de Producto">
+                            <label for="exampleInputEmail1">Nombre</label>
+                            <input type="text" class="form-control" id="nombre_producto" placeholder="Nombre de Producto">
                         </div>
                         <!-- /.form-group -->
                     </div>
 
-                    <!-- /.col -->
-                    {{-- <div class="col-md-6">
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <label>Multiple</label>
-                            <select class="select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
-                            <option>Alabama</option>
-                            <option>Alaska</option>
-                            <option>California</option>
-                            <option>Delaware</option>
-                            <option>Tennessee</option>
-                            <option>Texas</option>
-                            <option>Washington</option>
-                            </select>
-                        </div>
-                        <!-- /.form-group -->
-                        <div class="form-group">
-                            <label>Disabled Result</label>
+                            <label>Categoria</label>
                             <select class="form-control select2" style="width: 100%;">
-                            <option selected="selected">Alabama</option>
-                            <option>Alaska</option>
-                            <option disabled="disabled">California (disabled)</option>
-                            <option>Delaware</option>
-                            <option>Tennessee</option>
-                            <option>Texas</option>
-                            <option>Washington</option>
+                            <option selected="selected">Bebidas</option>
+                            <option>Bebidas</option>
+                            <option>Fiabres</option>
+                            <option>Mercaderia</option>
+                            <option>Alcohol</option>
+                            <option>Golosinas</option>
                             </select>
                         </div>
                         <!-- /.form-group -->
-                    </div> --}}
-                    <!-- /.col -->
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Precio</label>
+                            <input type="number" class="form-control" id="precio_producto" placeholder="Precio de Producto">
+                        </div>
+                        <!-- /.form-group -->
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Stock</label>
+                            <input type="number" class="form-control" id="stock_producto" placeholder="Cantidad">
+                        </div>
+                        <!-- /.form-group -->
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Stock Minimo</label>
+                            <input type="number" class="form-control" id="stock_producto" placeholder="Cantidad Minima">
+                        </div>
+                        <!-- /.form-group -->
+                    </div>
+
                 </div>
                 <!-- /.row -->
 
@@ -93,6 +90,3 @@
         </div>
     </section>
 @endsection
-
-
-
