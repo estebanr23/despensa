@@ -24,7 +24,7 @@
 
   <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="{{ asset('admin/img/AdminLTELogo.png') }}" alt="AdminLTELogo" height="60" width="60">
+    <img class="animation__shake" src="{{asset('admin/img/coca-cola.gif')}}" alt="Imagen de carga" height="250" width="250">
   </div>
 
   <!-- Navbar -->
@@ -240,13 +240,13 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="{{ Route('products.create') }}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Agregar Producto</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="{{ Route('products.index') }}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Lista de Productos</p>
                   </a>

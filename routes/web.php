@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ProductController;
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +23,13 @@ Route::get('/', function () {
     return view('index');
 });
 
+// Productos
+Route::resource('products', ProductController::class);
+
+
+
+
+
 // Ventas
 Route::get('/ventas/nueva-venta', function () {
     return view('ventas.nueva-venta');
@@ -28,15 +37,6 @@ Route::get('/ventas/nueva-venta', function () {
 
 Route::get('/ventas/listado-ventas', function () {
     return view('ventas.listado-ventas');
-});
-
-// Productos
-Route::get('/productos/agregar-producto', function () {
-    return view('productos.agregar-producto');
-});
-
-Route::get('/productos/listado-productos', function () {
-    return view('productos.listado-productos');
 });
 
 // Pedidos
