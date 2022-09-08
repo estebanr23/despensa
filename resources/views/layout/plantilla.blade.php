@@ -15,7 +15,7 @@
   <link rel="stylesheet" href=" {{ asset('admin/plugins/datatables-responsive/responsive.bootstrap4.min.css') }}">
   <link rel="stylesheet" href=" {{ asset('admin/plugins/datatables-buttons/buttons.bootstrap4.min.css') }}">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="{{ asset('admin/plugins/fontawesome-free/css/all.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('admin/css/all.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('admin/css/adminlte.min.css') }}">
 </head>
@@ -290,13 +290,13 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="{{ Route('providers.create') }}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Agregar Proveedor</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="{{ Route('providers.index') }}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Lista de Proveedores</p>
                   </a>

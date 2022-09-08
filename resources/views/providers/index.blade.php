@@ -9,44 +9,42 @@
             <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                <h3 class="card-title">Lista de Productos</h3>
+                <h3 class="card-title">Lista de Proveedores</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
                 <table id="example2" class="table table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th>Codigo</th>
                             <th>Nombre</th>
-                            <th>Categoria</th>
-                            <th>Precio</th>
-                            <th>Stock</th>
+                            <th>Direccion</th>
+                            <th>Telefono</th>
+                            <th>Email</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($products as $product)
+                        @foreach ($providers as $provider)
                             <tr>
-                                <td>{{ $product->codigo }}</td>
-                                <td>{{ $product->nombre_prod }}</td>
-                                <td>{{ $product->category->nombre_cat }}</td>
-                                <td>{{ $product->precio_prod }}</td>
-                                <td>{{ $product->stock_prod }}</td>
+                                <td>{{ $provider->nombre_prov }}</td>
+                                <td>{{ $provider->direccion_prov }}</td>
+                                <td>{{ $provider->email_prov }}</td>
+                                <td>{{ $provider->telefono_prov }}</td>
                                 <td>
                                     <a href="#"><i class="fa-solid fa-eye"></i></a>
-                                    <a href="{{ Route('products.edit', $product->id) }}" title="Editar"><i class="fa-sharp fa-solid fa-marker"></i></a>
+                                    <a href="{{ Route('providers.edit', $provider->id) }}" title="Editar"><i class="fa-sharp fa-solid fa-marker"></i></a>
                                     <a href="#"><i class="fa-sharp fa-solid fa-trash-can"></i></a>
                                 </td>
                             </tr>
-                        @endforeach
+                        @endforeach  
+                    <tr>
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th>Codigo</th>
                             <th>Nombre</th>
-                            <th>Categoria</th>
-                            <th>Precio</th>
-                            <th>Stock</th>
+                            <th>Direccion</th>
+                            <th>Telefono</th>
+                            <th>Email</th>
                             <th>Acciones</th>
                         </tr>
                     </tfoot>

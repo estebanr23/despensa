@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 
+
 class ProductController extends Controller
 {
     public function index() {
-        return view('products.index');
+        $products = Product::all();
+        return view('products.index', compact('products'));
     }
 
     public function create() {
@@ -28,7 +32,8 @@ class ProductController extends Controller
         ]);
 
         $product = Product::create($request->all());
-        return view('products.index');
+        
+        return redirect()->route('products.index');
     }
 
     public function edit($id) {
@@ -39,14 +44,26 @@ class ProductController extends Controller
     }
 
     public function update(Request $request, Product $product) {
-
-        $request->validate([
+        
+        // Para validar un campo unico sin que arroje error al actualizar el campo por lo que ya existe ese codigo o nombre en la tabla de product
+        Validator::make($request->all(), [
+            'codigo' => [
+                'required',
+                Rule::unique('products')->ignore($request->codigo),
+                'max:10'
+            ],
+            'nombre_prod' => [
+                'required',
+                Rule::unique('products')->ignore($request->nombre_prod),
+                'max:60'
+            ],
             'precio_prod' => 'required|numeric',
             'stock_prod' => 'required|integer',
         ]);
 
         $product->update($request->all());
-        return view('products.index');
+
+        return redirect()->route('products.index');
     }
 
     public function show() {

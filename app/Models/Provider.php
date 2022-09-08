@@ -10,6 +10,8 @@ class Provider extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function products() {
         return $this->BelongsToMany('App\Models\Product');
     }

@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProviderController;
 use App\Models\Product;
+use App\Models\Provider;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,7 +28,8 @@ Route::get('/', function () {
 // Productos
 Route::resource('products', ProductController::class);
 
-
+// Proveedores
+Route::resource('providers', ProviderController::class);
 
 
 
@@ -49,13 +52,13 @@ Route::get('/pedidos/listado-pedidos', function () {
 });
 
 // Proveedores
-Route::get('/proveedores/nuevo-proveedor', function () {
+/* Route::get('/proveedores/nuevo-proveedor', function () {
     return view('proveedores.nuevo-proveedor');
 });
 
 Route::get('/proveedores/listado-proveedores', function () {
     return view('proveedores.listado-proveedores');
-});
+}); */
 
 // Usuarios
 Route::get('/usuarios/nuevo-usuario', function () {
