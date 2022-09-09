@@ -33,9 +33,9 @@
                                 <td>{{ $product->precio_prod }}</td>
                                 <td>{{ $product->stock_prod }}</td>
                                 <td>
-                                    <a href="#"><i class="fa-solid fa-eye"></i></a>
-                                    <a href="{{ Route('products.edit', $product->id) }}" title="Editar"><i class="fa-sharp fa-solid fa-marker"></i></a>
-                                    <a href="#"><i class="fa-sharp fa-solid fa-trash-can"></i></a>
+                                    <a href="#"><i class="fa fa-solid fa-eye"></i></a>
+                                    <a href="{{ Route('products.edit', $product->id) }}" title="Editar"><i class="fa fa-sharp fa-solid fa-marker"></i></a>
+                                    <a href="#"><i class="fa fa-sharp fa-solid fa-trash"></i></a>
                                 </td>
                             </tr>
                         @endforeach

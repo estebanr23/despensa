@@ -31,9 +31,9 @@
                                 <td>{{ $provider->email_prov }}</td>
                                 <td>{{ $provider->telefono_prov }}</td>
                                 <td>
-                                    <a href="#"><i class="fa-solid fa-eye"></i></a>
-                                    <a href="{{ Route('providers.edit', $provider->id) }}" title="Editar"><i class="fa-sharp fa-solid fa-marker"></i></a>
-                                    <a href="#"><i class="fa-sharp fa-solid fa-trash-can"></i></a>
+                                    <a href="#"><i class="fa fa-solid fa-eye"></i></a>
+                                    <a href="{{ Route('providers.edit', $provider->id) }}" title="Editar"><i class="fa fa-sharp fa-solid fa-marker"></i></a>
+                                    <a href="#"><i class="fa fa-sharp fa-solid fa-trash"></i></a>
                                 </td>
                             </tr>
                         @endforeach  

@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProviderController;
+use App\Http\Controllers\SaleController;
 use App\Models\Product;
 use App\Models\Provider;
+use App\Models\Sale;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,16 +33,16 @@ Route::resource('products', ProductController::class);
 // Proveedores
 Route::resource('providers', ProviderController::class);
 
-
-
 // Ventas
-Route::get('/ventas/nueva-venta', function () {
+Route::resource('sales', SaleController::class);
+
+/* Route::get('/ventas/nueva-venta', function () {
     return view('ventas.nueva-venta');
 });
 
 Route::get('/ventas/listado-ventas', function () {
     return view('ventas.listado-ventas');
-});
+}); */
 
 // Pedidos
 Route::get('/pedidos/agregar-pedido', function () {
@@ -50,15 +52,6 @@ Route::get('/pedidos/agregar-pedido', function () {
 Route::get('/pedidos/listado-pedidos', function () {
     return view('pedidos.listado-pedidos');
 });
-
-// Proveedores
-/* Route::get('/proveedores/nuevo-proveedor', function () {
-    return view('proveedores.nuevo-proveedor');
-});
-
-Route::get('/proveedores/listado-proveedores', function () {
-    return view('proveedores.listado-proveedores');
-}); */
 
 // Usuarios
 Route::get('/usuarios/nuevo-usuario', function () {
