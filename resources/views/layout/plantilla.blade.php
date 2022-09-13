@@ -215,13 +215,13 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="{{ Route('sales.create') }}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Agregar Venta</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="{{ Route('sales.index') }}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Ventas Realizadas</p>
                   </a>
