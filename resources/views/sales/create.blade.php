@@ -52,15 +52,6 @@
                 <!-- /.card-body -->
                 <div class="card-footer">Lista de productos seleccionados</div>
 
-
-                {{-- <div class="card-body" id="items">
-
-                </div> --}}
-                <!-- /.row -->
-
-
-
-
                 <div class="invoice p-3 mb-3">
                     <!-- Table row -->
                     <div class="row">
@@ -105,7 +96,7 @@
                     <div class="row no-print">
                       <div class="col-12">
                         <button type="button" class="btn btn-danger float-right"><i class="fas fa-trash"></i> Cancelar</button>
-                        <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;"><i class="far fa-credit-card"></i> Finalizar</button>
+                        <button type="button" id="fin_venta" class="btn btn-primary float-right" style="margin-right: 5px;"><i class="far fa-credit-card"></i> Finalizar</button>
                       </div>
                     </div>
                 </div>
@@ -119,8 +110,9 @@
     <script>
         $(document).ready(function(){
             let carrito = [];
+            let total=0;
 
-            $("button").click(function() {
+            $("#agregar_item").click(function() {
                 const product = $('#product_id  option:selected');
                 const cant_prod = $('#cant_order_prod').val();   
                 crearItem(product, cant_prod);
@@ -130,15 +122,15 @@
             function crearItem(product, cant_prod) {
                 const precio = product.attr('data-precio')
                 const item = {
-                    id: product.val(),
+                    product_id: product.val(),
                     nombre: product.text(),
-                    cantidad: cant_prod,
-                    precio: precio,
+                    cant_sale_prod: cant_prod,
+                    total_item: precio,
                     subTotal: (cant_prod * precio).toFixed(2),
                 }
                 
 
-                const busqueda = carrito.find((element) => element.id === item.id);
+                const busqueda = carrito.find((element) => element.id === item.product_id);
                 if(!busqueda) {
                     carrito.push(item);
                     console.log(carrito);
@@ -150,10 +142,10 @@
                 let fila = $("<tr></tr>");
                 let elemento = '';
                 elemento += "<td><p>"+item.nombre+"</p></td>";
-                elemento += "<td><p>"+item.cantidad+"</p></td>";
-                elemento += "<td><p>$ "+item.precio+"</p></td>";
+                elemento += "<td><p>"+item.cant_sale_prod+"</p></td>";
+                elemento += "<td><p>$ "+item.total_item+"</p></td>";
                 elemento += "<td><p>$ "+item.subTotal+"</p></td>";
-                elemento += "<td><button id='"+item.id+"' class='btn hola btn-danger'>Eliminar</button></td>";
+                elemento += "<td><button id='"+item.product_id+"' class='btn hola btn-danger'>Eliminar</button></td>";
 
                 
                 $(fila).append(elemento);
@@ -161,9 +153,25 @@
             }
 
             function calcularTotal() {
-                let total = carrito.reduce((acumulador, item) => acumulador + Number(item.subTotal), 0);
+                total = carrito.reduce((acumulador, item) => acumulador + Number(item.subTotal), 0).toFixed(2);
                 $('#total').text(`$ ${total}`);
             }
+
+            // Guardar datos
+            $('#fin_venta').on('click', function() {
+
+                let token = "{{ csrf_token() }}";
+                $.ajax({
+                    type: "post",
+                    data: {carrito: carrito, total_sale: total, _token: token},
+                    url:"{{ Route('sales.store') }}",
+                    success: function(respuesta) {
+                        // *** Agregar mensaje de exito ***
+                        console.log(respuesta);
+                    }
+                });
+
+            });
 
         });
 

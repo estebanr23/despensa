@@ -28,6 +28,10 @@ Route::get('/', function () {
 });
 
 // Productos
+// Las rutas agregadas se colocan antes del resource para evitar conflictos.
+Route::get('products/listDelete', [ProductController::class, 'listDelete'])->name('products.listDelete');
+Route::get('products/restoreProduct/{product}', [ProductController::class, 'restoreProduct'])->name('products.restoreProduct');
+
 Route::resource('products', ProductController::class);
 
 // Proveedores
@@ -36,13 +40,8 @@ Route::resource('providers', ProviderController::class);
 // Ventas
 Route::resource('sales', SaleController::class);
 
-/* Route::get('/ventas/nueva-venta', function () {
-    return view('ventas.nueva-venta');
-});
 
-Route::get('/ventas/listado-ventas', function () {
-    return view('ventas.listado-ventas');
-}); */
+
 
 // Pedidos
 Route::get('/pedidos/agregar-pedido', function () {

@@ -9,7 +9,7 @@
             <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                <h3 class="card-title">Lista de Productos</h3>
+                <h3 class="card-title">Lista de Productos Eliminados</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -33,13 +33,7 @@
                                 <td>{{ $product->precio_prod }}</td>
                                 <td>{{ $product->stock_prod }}</td>
                                 <td>
-                                    <a href="{{ Route('products.show', $product->id) }}"><i class="fa fa-solid fa-eye"></i></a>
-                                    <a href="{{ Route('products.edit', $product->id) }}" title="Editar"><i class="fa fa-sharp fa-solid fa-marker"></i></a>
-                                    <form action="{{ Route('products.destroy', $product->id) }}" method="POST" style="display:inline-block">
-                                        @csrf
-                                        @method('delete')
-                                        <button type="submit" title="Eliminar" style="color:#007bff; background:none; border:none"><i class="fa fa-sharp fa-solid fa-trash"></i></button>
-                                    </form>
+                                    <a href="{{ Route('products.restoreProduct', $product->id) }}"><i class="fa fa-solid fa-eye"></i></a>
                                 </td>
                             </tr>
                         @endforeach

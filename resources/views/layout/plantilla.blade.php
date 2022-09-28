@@ -251,6 +251,12 @@
                     <p>Lista de Productos</p>
                   </a>
                 </li>
+                <li class="nav-item">
+                  <a href="{{ Route('products.listDelete') }}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Productos Eliminados</p>
+                  </a>
+                </li>
               </ul>
             </li>
 
@@ -413,6 +419,10 @@
 
 <!-- jQuery -->
 <script src="{{ asset('admin/plugins/jquery/jquery.min.js') }}"></script>
+
+<!-- Bootstrap -->
+<script src="{{ asset('admin/plugins/bootstrap/bootstrap.min.js') }}"></script>
+
 <!-- AdminLTE App -->
 <script src="{{ asset('admin/js/adminlte.js') }}"></script>
 
