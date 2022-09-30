@@ -63,4 +63,10 @@ class ProviderController extends Controller
 
         return redirect()->route('providers.index');
     }
+
+    public function destroy($id) {
+        $provider = Provider::find($id);
+        $provider->delete();
+        return redirect()->route('providers.index');
+    }
 }

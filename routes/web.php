@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\SaleController;
@@ -40,17 +41,12 @@ Route::resource('providers', ProviderController::class);
 // Ventas
 Route::resource('sales', SaleController::class);
 
-
-
-
 // Pedidos
-Route::get('/pedidos/agregar-pedido', function () {
-    return view('pedidos.agregar-pedido');
-});
+Route::delete('orders/destroyItem/{item}', [OrderController::class, 'destroyItem'])->name('orders.destroyItem');
+Route::resource('orders', OrderController::class);
 
-Route::get('/pedidos/listado-pedidos', function () {
-    return view('pedidos.listado-pedidos');
-});
+
+
 
 // Usuarios
 Route::get('/usuarios/nuevo-usuario', function () {

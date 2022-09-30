@@ -3,6 +3,7 @@
 @section('title', 'Nuevo Producto')
     
 @section('content')
+    <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
         <div class="row">
@@ -16,38 +17,34 @@
                 <table id="example2" class="table table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th>Nombre</th>
-                            <th>Direccion</th>
-                            <th>Telefono</th>
-                            <th>Email</th>
+                            <th>Pedido</th>
+                            <th>Fecha</th>
+                            <th>Proveedor</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($providers as $provider)
+                        @foreach ($orders as $order)
                             <tr>
-                                <td>{{ $provider->nombre_prov }}</td>
-                                <td>{{ $provider->direccion_prov }}</td>
-                                <td>{{ $provider->email_prov }}</td>
-                                <td>{{ $provider->telefono_prov }}</td>
+                                <td>{{ $order->id }}</td>
+                                <td>{{ $order->created_at->format('d-m-Y') }}</td>
+                                <td>{{ $order->provider->nombre_prov }}</td>
                                 <td>
-                                    <a href="{{ Route('providers.edit', $provider->id) }}" title="Editar"><i class="fa fa-sharp fa-solid fa-marker"></i></a>
-                                    <form action="{{ Route('providers.destroy', $provider->id) }}" method="POST" style="display:inline-block">
+                                    <a href="{{ Route('orders.edit', $order->id) }}" title="Editar"><i class="fa fa-sharp fa-solid fa-marker"></i></a>
+                                    <form action="{{ Route('orders.destroy', $order->id) }}" method="POST" style="display:inline-block">
                                         @csrf
                                         @method('delete')
                                         <button type="submit" title="Eliminar" style="color:#007bff; background:none; border:none"><i class="fa fa-sharp fa-solid fa-trash"></i></button>
                                     </form>
                                 </td>
                             </tr>
-                        @endforeach  
-                    <tr>
+                        @endforeach
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th>Nombre</th>
-                            <th>Direccion</th>
-                            <th>Telefono</th>
-                            <th>Email</th>
+                            <th>Pedido</th>
+                            <th>Fecha</th>
+                            <th>Proveedor</th>
                             <th>Acciones</th>
                         </tr>
                     </tfoot>

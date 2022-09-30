@@ -10,6 +10,8 @@ class ItemOrder extends Model
     use HasFactory;
 
     protected $table = 'items_orders';
+    public $timestamps = false;
+    protected $guarded = [];
 
     public function product() {
         return $this->belongsTo('App\Models\Product');
