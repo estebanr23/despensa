@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProviderController;
@@ -45,7 +46,8 @@ Route::resource('sales', SaleController::class);
 Route::delete('orders/destroyItem/{item}', [OrderController::class, 'destroyItem'])->name('orders.destroyItem');
 Route::resource('orders', OrderController::class);
 
-
+// Categorias
+Route::resource('categories', CategoryController::class);
 
 
 // Usuarios

@@ -226,6 +226,31 @@
               </ul>
             </li>
 
+            <!-- Categorias -->
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-edit"></i>
+                <p>
+                  Categorias
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ Route('categories.create') }}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Agregar Categorias</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ Route('categories.index') }}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Lista de Categorias</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
             <!-- Productos -->
             <li class="nav-item">
               <a href="#" class="nav-link">
@@ -268,13 +293,13 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="{{ Route('orders.create') }}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Agregar Pedido</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="{{ Route('orders.index') }}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Lista de Pedidos</p>
                   </a>

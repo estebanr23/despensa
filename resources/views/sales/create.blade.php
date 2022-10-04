@@ -130,7 +130,7 @@
                 }
                 
 
-                const busqueda = carrito.find((element) => element.id === item.product_id);
+                const busqueda = carrito.find((element) => element.product_id === item.product_id);
                 if(!busqueda) {
                     carrito.push(item);
                     console.log(carrito);
@@ -145,7 +145,7 @@
                 elemento += "<td><p>"+item.cant_sale_prod+"</p></td>";
                 elemento += "<td><p>$ "+item.total_item+"</p></td>";
                 elemento += "<td><p>$ "+item.subTotal+"</p></td>";
-                elemento += "<td><button id='"+item.product_id+"' class='btn hola btn-danger'>Eliminar</button></td>";
+                elemento += "<td><button id='"+item.product_id+"' class='btn btn-danger delete'>Eliminar</button></td>";
 
                 
                 $(fila).append(elemento);
@@ -170,7 +170,14 @@
                         console.log(respuesta);
                     }
                 });
+            });
 
+            // Eliminar item generado dinamicamente
+            $('body').on('click', '.delete' ,function() {
+                const id = $(this).attr('id');
+                const padre = $(this).closest('tr');
+                carrito = carrito.filter((element) => element.product_id !== id);
+                padre.remove();
             });
 
         });
