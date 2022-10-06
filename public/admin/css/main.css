@@ -1,0 +1,55 @@
+:root {
+    --sidebar-color: #183153;
+    --sidebar-btn: #1a3d6b;
+    --leter-color: #d7dbe1;
+  }
+
+[class*=sidebar-dark] .user-panel,
+[class*=sidebar-dark] .brand-link {
+    border-bottom: 1px solid var(--leter-color);
+}
+
+[class*=sidebar-dark-] {
+    background-color: var(--sidebar-color);
+    color: var(--leter-color);
+}
+
+[class*=sidebar-dark] .form-control-sidebar {
+    background-color: var(--leter-color);
+    border: 1px solid #6c7178;
+    color: var(--leter-color);
+}
+
+[class*=sidebar-dark] .btn-sidebar {
+    background-color: var(--sidebar-color);
+}
+
+[class*=sidebar-dark] .btn-sidebar:hover {
+    background-color: var(--sidebar-btn);
+}
+
+.form-icon {
+    display:inline-block;
+}
+
+.btn-icon {
+    color:#007bff; 
+    background:none; 
+    border:none;
+}
+
+.order-pendiente {
+    padding: 5px 10px; 
+    background: rgb(243, 239, 16); 
+    color:#ffffff; 
+    border-radius:5px; 
+    font-weight:600;
+}
+
+.order-recibido {
+    padding: 5px 10px; 
+    background: rgb(61, 243, 16); 
+    color:#ffffff; 
+    border-radius:5px; 
+    font-weight:600;
+}

@@ -44,6 +44,7 @@ Route::resource('sales', SaleController::class);
 
 // Pedidos
 Route::delete('orders/destroyItem/{item}', [OrderController::class, 'destroyItem'])->name('orders.destroyItem');
+Route::get('orders/cambiarEstado/{item}', [OrderController::class, 'cambiarEstado'])->name('orders.cambiarEstado');
 Route::resource('orders', OrderController::class);
 
 // Categorias

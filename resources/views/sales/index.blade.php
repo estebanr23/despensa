@@ -56,7 +56,12 @@
                                 <td>
                                     {{-- <a href="{{ Route('sales.show', $sale) }}" title="Ver" id="show-modal"><i class="fa fa-solid fa-eye"></i></a> --}}
                                     <a id="{{ $sale->id }}" class="openBtn"><i class="fa fa-solid fa-eye"></i></a>
-                                    <a href="#"><i class="fa fa-sharp fa-solid fa-trash"></i></a>
+                                    {{-- <a href="#"><i class="fa fa-sharp fa-solid fa-trash"></i></a> --}}
+                                    <form class="form-icon" action="{{ Route('sales.destroy', $sale->id) }}}" method="POST">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" title="Eliminar" class="btn-icon"><i class="fa fa-sharp fa-solid fa-trash"></i></button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

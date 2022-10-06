@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ItemOrder;
+use App\Models\ItemStatus;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Provider;
@@ -59,15 +60,38 @@ class OrderController extends Controller
         
     }
 
+    // Eliminar un item de un pedido
     public function destroyItem($id) {
         $item = ItemOrder::find($id);
         $item->delete();
+
         return "exito";
     }
 
+    // Cambiar estado de item de un pedido
+    public function cambiarEstado($id) {
+        $estado = ItemStatus::where('nombre_status', '=', 'Recibido')->first();
+
+        $item = ItemOrder::find($id);
+        $item->status_id = $estado->id;
+        // $item->save();
+
+        // *** Agregar excepcion ***
+        $product = Product::find($item->product_id);
+        $product->stock_prod += $item->cant_order_prod;
+        $product->save();
+
+        // *** Agregar excepcion ***
+        $item->save();
+
+        return 'exito';
+    }
+
+    // Elimar un venta con sus items relacionados
     public function destroy($id) {
         $order = Order::find($id);
         $order->delete();
+
         return redirect()->route('orders.index');
     }
 }

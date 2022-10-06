@@ -55,28 +55,27 @@
                 <div class="invoice p-3 mb-3">
                     <!-- Table row -->
                     <div class="row">
-                      <div class="col-12 table-responsive">
-                        <table class="table table-striped">
-                          <thead>
-                          <tr>
-                            <th>Producto</th>
-                            <th>Cantidad</th>
-                            <th>Precio</th>
-                            <th>Subtotal</th>
-                            <th>Acciones</th>
-                          </tr>
-                          </thead>
-                          <tbody id="items"></tbody>
-                        </table>
+                        <div class="col-12 table-responsive">
+                            <p class="lead">Fecha {{ date('d/m/Y') }}</p>
+                            <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Precio</th>
+                                <th>Subtotal</th>
+                                <th>Acciones</th>
+                            </tr>
+                            </thead>
+                            <tbody id="items"></tbody>
+                            </table>
                       </div>
                       <!-- /.col -->
                     </div>
                     <!-- /.row -->
       
                     <div class="row">
-                      <div class="col-6">
-                        <p class="lead">Amount Due 2/22/2014</p>
-      
+                      <div class="col-5">
                         <div class="table-responsive">
                             <table class="table">
                                 <tbody>

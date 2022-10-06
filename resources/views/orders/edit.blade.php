@@ -29,18 +29,18 @@
                                 <td>{{ $item->product->nombre_prod }}</td>
                                 <td>{{ $item->cant_order_prod }}</td>
 
-                                @if ($item->status_id == 1)
-                                    <td><span style="padding: 5px 10px; background: rgb(243, 239, 16); color:#ffffff; border-radius:5px; font-weight:600">Pendiente</span></td>
+                                {{-- @if ($item->status_id == 1) --}}
+                                @if ($item->status->nombre_status == 'Pendiente')
+                                    <td><span class="order-pendiente">Pendiente</span></td>
                                 @else
-                                    <td><span style="padding: 5px 10px; background: rgb(61, 243, 16); color:#ffffff; border-radius:5px; font-weight:600">Recibido</span></td>
+                                    <td><span class="order-recibido">Recibido</span></td>
                                 @endif
                                 
                                 <td>
-                                    {{-- <form action="" method="POST" style="display:inline-block">
-                                        @csrf
-                                        @method('delete') --}}
-                                        <button type="submit" class="eliminar-item" data-item = "{{ $item->id }}" title="Eliminar" style="color:#007bff; background:none; border:none"><i class="fa fa-sharp fa-solid fa-trash"></i></button>
-                                    {{-- </form> --}}
+                                    @if ($item->status_id == 1)
+                                        <button type="submit" class="estado-item" data-item = "{{ $item->id }}" title="Cambiar estado" style="color:#007bff; background:none; border:none"><i class="fa fa-sharp fa-solid fa-check"></i></button>
+                                    @endif
+                                    <button type="submit" class="eliminar-item" data-item = "{{ $item->id }}" title="Eliminar" style="color:#007bff; background:none; border:none"><i class="fa fa-sharp fa-solid fa-trash"></i></button>
                                 </td>
                             </tr>
                         @endforeach
@@ -69,6 +69,7 @@
 
 @push('scripts')
     <script>
+        // Eliminar item de pedido
         $('.eliminar-item').on('click', function(e) {
             e.preventDefault();
 
@@ -87,7 +88,21 @@
                     }        
                 }
             });
+        });
 
+        // Cambiar estado de un item de pedido
+        $('.estado-item').on('click', function() {
+            id = $(this).attr('data-item');
+
+            $.ajax({
+                type: 'get',
+                url: '/orders/cambiarEstado/'+id,
+                success: function(respuesta) {
+
+                    // *** Hacer que cambie el estado dinamicamente. Agregar y quitar clase al span *** 
+                    console.log(respuesta);
+                }
+            });
         });
     </script>
 @endpush

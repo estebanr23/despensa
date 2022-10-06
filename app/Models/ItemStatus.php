@@ -9,6 +9,10 @@ class ItemStatus extends Model
 {
     use HasFactory;
 
-    protected $table = 'item_status'; 
+    protected $table = 'items_status'; 
     public $timestamps = false;
+
+    public function itemsOrder() {
+        return $this->hasMany('App\Models\ItemOrder');
+    }
 }

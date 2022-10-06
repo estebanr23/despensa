@@ -77,4 +77,19 @@ class SaleController extends Controller
         return $items;
     }
 
+    public function destroy($id) {
+        $sale = Sale::find($id);
+        $items = $sale->itemsSale;
+
+        foreach ($items as $item) {
+            $product = Product::find($item->product_id);
+            $product->stock_prod += $item->cant_sale_prod;
+            $product->save();
+        }
+
+        $sale->delete();
+        return $items;
+        // return view('sales.index', compact('sales'));
+    }
+
 }

@@ -31,10 +31,10 @@
                                 <td>{{ $order->provider->nombre_prov }}</td>
                                 <td>
                                     <a href="{{ Route('orders.edit', $order->id) }}" title="Editar"><i class="fa fa-sharp fa-solid fa-marker"></i></a>
-                                    <form action="{{ Route('orders.destroy', $order->id) }}" method="POST" style="display:inline-block">
+                                    <form class="form-icon" action="{{ Route('orders.destroy', $order->id) }}" method="POST">
                                         @csrf
                                         @method('delete')
-                                        <button type="submit" title="Eliminar" style="color:#007bff; background:none; border:none"><i class="fa fa-sharp fa-solid fa-trash"></i></button>
+                                        <button type="submit" title="Eliminar" class="btn-icon"><i class="fa fa-sharp fa-solid fa-trash"></i></button>
                                     </form>
                                 </td>
                             </tr>

@@ -18,6 +18,8 @@
   <link rel="stylesheet" href="{{ asset('admin/css/all.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('admin/css/adminlte.min.css') }}">
+  <!-- Main style -->
+  <link rel="stylesheet" href="{{ asset('admin/css/main.css') }}">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -185,7 +187,7 @@
       <!-- SidebarSearch Form -->
       <div class="form-inline">
         <div class="input-group" data-widget="sidebar-search">
-          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+          <input class="form-control form-control-sidebar form-search-edit" type="search" placeholder="Search" aria-label="Search">
           <div class="input-group-append">
             <button class="btn btn-sidebar">
               <i class="fas fa-search fa-fw"></i>
@@ -204,22 +206,22 @@
             <!-- Ventas -->
             <li class="nav-item">
               <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-edit"></i>
+                <i class="nav-icon fas fa-money-check-alt"></i>
                 <p>
                   Ventas
-                  <i class="fas fa-angle-left right"></i>
+                  <i class="fas fa-chevron-circle-down right"></i>
                 </p>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
                   <a href="{{ Route('sales.create') }}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
+                    <i class="fas fa-angle-right nav-icon"></i>
                     <p>Agregar Venta</p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="{{ Route('sales.index') }}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
+                    <i class="fas fa-angle-right nav-icon"></i>
                     <p>Ventas Realizadas</p>
                   </a>
                 </li>
@@ -229,22 +231,22 @@
             <!-- Categorias -->
             <li class="nav-item">
               <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-edit"></i>
+                <i class="nav-icon fas fa-th-list"></i>
                 <p>
                   Categorias
-                  <i class="fas fa-angle-left right"></i>
+                  <i class="fas fa-chevron-circle-down right"></i>
                 </p>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
                   <a href="{{ Route('categories.create') }}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
+                    <i class="fas fa-angle-right nav-icon"></i>
                     <p>Agregar Categorias</p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="{{ Route('categories.index') }}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
+                    <i class="fas fa-angle-right nav-icon"></i>
                     <p>Lista de Categorias</p>
                   </a>
                 </li>
@@ -254,28 +256,28 @@
             <!-- Productos -->
             <li class="nav-item">
               <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-edit"></i>
+                <i class="nav-icon fas fa-cart-plus"></i>
                 <p>
                   Productos
-                  <i class="fas fa-angle-left right"></i>
+                  <i class="fas fa-chevron-circle-down right"></i>
                 </p>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
                   <a href="{{ Route('products.create') }}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
+                    <i class="fas fa-angle-right nav-icon"></i>
                     <p>Agregar Producto</p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="{{ Route('products.index') }}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
+                    <i class="fas fa-angle-right nav-icon"></i>
                     <p>Lista de Productos</p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="{{ Route('products.listDelete') }}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
+                    <i class="fas fa-angle-right nav-icon"></i>
                     <p>Productos Eliminados</p>
                   </a>
                 </li>
@@ -285,22 +287,22 @@
             <!-- Pedidos -->
             <li class="nav-item">
               <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-edit"></i>
+                <i class="nav-icon fas fa-truck"></i>
                 <p>
                   Pedidos
-                  <i class="fas fa-angle-left right"></i>
+                  <i class="fas fa-chevron-circle-down right"></i>
                 </p>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
                   <a href="{{ Route('orders.create') }}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
+                    <i class="fas fa-angle-right nav-icon"></i>
                     <p>Agregar Pedido</p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="{{ Route('orders.index') }}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
+                    <i class="fas fa-angle-right nav-icon"></i>
                     <p>Lista de Pedidos</p>
                   </a>
                 </li>
@@ -313,19 +315,19 @@
                 <i class="nav-icon fas fa-edit"></i>
                 <p>
                   Proveedores
-                  <i class="fas fa-angle-left right"></i>
+                  <i class="fas fa-chevron-circle-down right"></i>
                 </p>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
                   <a href="{{ Route('providers.create') }}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
+                    <i class="fas fa-angle-right nav-icon"></i>
                     <p>Agregar Proveedor</p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="{{ Route('providers.index') }}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
+                    <i class="fas fa-angle-right nav-icon"></i>
                     <p>Lista de Proveedores</p>
                   </a>
                 </li>
@@ -335,22 +337,22 @@
             <!-- Usuarios -->
             <li class="nav-item">
               <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-edit"></i>
+                <i class="nav-icon fas fa-user"></i>
                 <p>
                   Usuarios
-                  <i class="fas fa-angle-left right"></i>
+                  <i class="fas fa-chevron-circle-down right"></i>
                 </p>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
                   <a href="#" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
+                    <i class="fas fa-angle-right nav-icon"></i>
                     <p>Agregar Usuario</p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="#" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
+                    <i class="fas fa-angle-right nav-icon"></i>
                     <p>Lista de Usuarios</p>
                   </a>
                 </li>
@@ -360,22 +362,22 @@
             <!-- Roles -->
             <li class="nav-item">
               <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-edit"></i>
+                <i class="nav-icon fas fa-tools"></i>
                 <p>
                   Roles
-                  <i class="fas fa-angle-left right"></i>
+                  <i class="fas fa-chevron-circle-down right"></i>
                 </p>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
                   <a href="#" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
+                    <i class="fas fa-angle-right nav-icon"></i>
                     <p>Agregar Rol</p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="#" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
+                    <i class="fas fa-angle-right nav-icon"></i>
                     <p>Lista de Roles</p>
                   </a>
                 </li>

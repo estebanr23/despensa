@@ -32,10 +32,10 @@
                                 <td>{{ $provider->telefono_prov }}</td>
                                 <td>
                                     <a href="{{ Route('providers.edit', $provider->id) }}" title="Editar"><i class="fa fa-sharp fa-solid fa-marker"></i></a>
-                                    <form action="{{ Route('providers.destroy', $provider->id) }}" method="POST" style="display:inline-block">
+                                    <form class="form-icon" action="{{ Route('providers.destroy', $provider->id) }}" method="POST">
                                         @csrf
                                         @method('delete')
-                                        <button type="submit" title="Eliminar" style="color:#007bff; background:none; border:none"><i class="fa fa-sharp fa-solid fa-trash"></i></button>
+                                        <button type="submit" title="Eliminar" class="btn-icon"><i class="fa fa-sharp fa-solid fa-trash"></i></button>
                                     </form>
                                 </td>
                             </tr>
