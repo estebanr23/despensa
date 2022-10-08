@@ -10,7 +10,9 @@
             <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                <h3 class="card-title">Productos de Pedido</h3>
+                <h3 class="card-title" style="padding-top: 10px">Productos de Pedido</h3>
+                <button type="button" id="cargar_pedido_completo" class="btn btn-success" style="float: right">Cargar Todo</button>
+                <input type="hidden" class="input-hidden" data-id="{{ $items[0]->order_id }}">
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -30,7 +32,7 @@
                                 <td>{{ $item->cant_order_prod }}</td>
 
                                 {{-- @if ($item->status_id == 1) --}}
-                                @if ($item->status->nombre_status == 'Pendiente')
+                                @if ($item->status->nombre_status === "Pendiente")
                                     <td><span class="order-pendiente">Pendiente</span></td>
                                 @else
                                     <td><span class="order-recibido">Recibido</span></td>
@@ -104,5 +106,26 @@
                 }
             });
         });
+
+        // Cargar pedido completo con todos los items
+        $('#cargar_pedido_completo').on('click', function() {
+            id = $('.input-hidden').attr('data-id'); // id del pedido en input hiden
+
+            $.ajax({
+                type: 'get',
+                url: '/orders/cargarItems/'+id,
+                success: function(respuesta) {
+                    console.log(respuesta);
+                    location.reload();
+                }
+            });
+        });
+
+        // Comprobar estado de pedidos para deshabilitar boton en caso que esten todos Recibidos
+        elemento = $('span.order-pendiente').length;
+        console.log(elemento);
+        if(!elemento) {
+            $('#cargar_pedido_completo').attr('disabled', 'disabled');
+        }
     </script>
 @endpush

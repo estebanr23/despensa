@@ -94,4 +94,19 @@ class OrderController extends Controller
 
         return redirect()->route('orders.index');
     }
+
+    // Metodo para indicar que todos los items de un pedido fueron recibidos y sumar actualizar el stock
+    public function cargarItems($id) {
+        $order = Order::find($id);
+        $items = $order->itemsOrder;
+
+        $estado = ItemStatus::where('nombre_status', '=', 'Recibido')->first();
+
+        foreach ($items as $item) {
+            $item->status_id = $estado->id;
+            $item->save();
+        }
+
+        return 'exito';
+    }
 }

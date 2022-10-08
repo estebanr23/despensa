@@ -176,6 +176,7 @@
                 const id = $(this).attr('id');
                 const padre = $(this).closest('tr');
                 carrito = carrito.filter((element) => element.product_id !== id);
+                calcularTotal();
                 padre.remove();
             });
 
