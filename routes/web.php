@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProviderController;
@@ -27,7 +28,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('index');
-});
+})->middleware('auth');
+
+// Usuarios
+// Route::get('/login', [LoginController::class, 'login'])->name('login');
+// Route::post('/auth', [LoginController::class, 'authenticate'])->name('auth');
 
 // Productos
 // Las rutas agregadas se colocan antes del resource para evitar conflictos.
