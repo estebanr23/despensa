@@ -88,7 +88,8 @@ class SaleController extends Controller
         }
 
         $sale->delete();
-        return $items;
+        return 'exito';
+        // return $items;
         // return view('sales.index', compact('sales'));
     }
 

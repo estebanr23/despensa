@@ -10,7 +10,7 @@ class LoginController extends Controller
     public function authenticate(Request $request) {
 
         $credentials = $request->validate([
-            'email' => ['required', 'email'],
+            'user' => ['required'],
             'password' => ['required'],
         ]);
 
@@ -21,8 +21,8 @@ class LoginController extends Controller
         }
 
         return back()->withErrors([
-            'email' => 'El usuario o contraseña no es valido.',
-        ])->onlyInput('email');
+            'user' => 'El usuario o contraseña no es valido.',
+        ])->onlyInput('user');
     }
 
     public function logout(Request $request) {

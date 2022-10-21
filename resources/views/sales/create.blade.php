@@ -34,7 +34,7 @@
                             <!-- /.form-group -->
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Cantidad</label>
-                                <input type="number" class="form-control" id="cant_order_prod" name="cant_order_prod" placeholder="Cantidad de Producto" min="0">
+                                <input type="number" class="form-control" id="cant_order_prod" name="cant_order_prod" placeholder="Cantidad de Producto" min="1" value="1">
                             </div>
                             <!-- /.form-group -->
                         </div>
@@ -94,7 +94,7 @@
                     <!-- this row will not appear when printing -->
                     <div class="row no-print">
                       <div class="col-12">
-                        <button type="button" class="btn btn-danger float-right"><i class="fas fa-trash"></i> Cancelar</button>
+                        <a href="{{ Route('sales.create') }}" class="btn btn-danger float-right"><i class="fas fa-trash"></i> Cancelar</a>
                         <button type="button" id="fin_venta" class="btn btn-primary float-right" style="margin-right: 5px;"><i class="far fa-credit-card"></i> Finalizar</button>
                       </div>
                     </div>
@@ -165,8 +165,33 @@
                     data: {carrito: carrito, total_sale: total, _token: token},
                     url:"{{ Route('sales.store') }}",
                     success: function(respuesta) {
-                        // *** Agregar mensaje de exito ***
-                        console.log(respuesta);
+
+                        if(respuesta === 'exito') { 
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 3000,
+                                timerProgressBar: false,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                                })
+
+                                Toast.fire({
+                                icon: 'success',
+                                title: 'Venta Exitosa'
+                                })
+                        } else {
+                            Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Algo salio mal!',
+                            footer: '<p>Comuniquese con el administrador.</p>'
+                            })
+                        } 
+                            
                     }
                 });
             });

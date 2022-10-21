@@ -92,7 +92,8 @@ class OrderController extends Controller
         $order = Order::find($id);
         $order->delete();
 
-        return redirect()->route('orders.index');
+        // return redirect()->route('orders.index');
+        return 'exito';
     }
 
     // Metodo para indicar que todos los items de un pedido fueron recibidos y sumar actualizar el stock

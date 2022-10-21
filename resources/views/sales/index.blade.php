@@ -57,11 +57,12 @@
                                     {{-- <a href="{{ Route('sales.show', $sale) }}" title="Ver" id="show-modal"><i class="fa fa-solid fa-eye"></i></a> --}}
                                     <a id="{{ $sale->id }}" class="openBtn"><i class="fa fa-solid fa-eye"></i></a>
                                     {{-- <a href="#"><i class="fa fa-sharp fa-solid fa-trash"></i></a> --}}
-                                    <form class="form-icon" action="{{ Route('sales.destroy', $sale->id) }}}" method="POST">
+                                    {{-- <form class="form-icon" action="{{ Route('sales.destroy', $sale->id) }}}" method="POST">
                                         @csrf
                                         @method('delete')
                                         <button type="submit" title="Eliminar" class="btn-icon"><i class="fa fa-sharp fa-solid fa-trash"></i></button>
-                                    </form>
+                                    </form> --}}
+                                    <button class="btn-icon eliminar-venta" title="Eliminar" data-id="{{ $sale->id }}"><i class="fa fa-sharp fa-solid fa-trash"></i></button>
                                 </td>
                             </tr>
                         @endforeach
@@ -91,6 +92,7 @@
 
 @push('scripts')
     <script>
+        // Mostar items de venta
         $('.openBtn').on('click' ,function(e) {
             e.preventDefault();
             $('#items-venta').empty();
@@ -113,6 +115,50 @@
                     }
                 }
             });
+        });
+
+        // Eliminar venta con todos sus items
+        $('.eliminar-venta').on('click', function(){
+            id = $(this).attr('data-id');
+            token = "{{ csrf_token() }}";
+
+            Swal.fire({
+                title: 'Desea eliminar?',
+                text: "Una vez eliminada la venta no se podra recuperar.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, eliminar'
+            }).then((result) => {
+
+                if (!result.isConfirmed) return;
+                
+                $.ajax({
+                    type:'post',
+                    url:"/sales/"+id,
+                    data: { _token: token, _method: 'delete' },
+                    success:function(respuesta) {
+
+                        if(respuesta === 'exito') { 
+                            Swal.fire(
+                            'Correcto',
+                            'Venta Eliminada',
+                            'success'
+                            )
+                        } else {
+                            Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Algo salio mal!',
+                            footer: '<p>Comuniquese con el administrador.</p>'
+                            })
+                        } 
+                    }
+
+                });
+
+            })
 
         });
 

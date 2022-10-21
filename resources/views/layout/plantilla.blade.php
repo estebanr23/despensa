@@ -18,6 +18,8 @@
   <link rel="stylesheet" href="{{ asset('admin/css/all.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('admin/css/adminlte.min.css') }}">
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="{{ asset('admin/plugins/sweetalert2/sweetalert2.min.css') }}">
   <!-- Main style -->
   <link rel="stylesheet" href="{{ asset('admin/css/main.css') }}">
 </head>
@@ -156,8 +158,8 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#" role="button">
-          <i class="fas fa-th-large"></i>
+        <a class="nav-link cerrar-sesion" href="{{ Route('logout') }}" role="button">
+          Cerrar Sesion
         </a>
       </li>
     </ul>
@@ -449,6 +451,9 @@
 
 <!-- AdminLTE App -->
 <script src="{{ asset('admin/js/adminlte.js') }}"></script>
+
+<!-- SweetAlert2 -->
+<script src="{{ asset('admin/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 
 <!-- Select2 -->
 <script src="{{asset('admin/plugins/select2/select2.full.min.js')}}"></script>

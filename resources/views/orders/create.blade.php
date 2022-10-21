@@ -62,7 +62,7 @@
         
                         <div class="row">
                             <div class="col-md-2">
-                                <button type="button" id="agregar_item" class="btn btn-block btn-success">Guardar</button>
+                                <button type="button" id="agregar_item" class="btn btn-block btn-success">Agregar</button>
                             </div>
                         </div>
                         <!-- /.row -->
@@ -91,7 +91,7 @@
                     <!-- this row will not appear when printing -->
                     <div class="row no-print">
                       <div class="col-12">
-                        <button type="button" class="btn btn-danger float-right"><i class="fas fa-trash"></i> Cancelar</button>
+                        <a href="{{ Route('orders.create') }}" class="btn btn-danger float-right"><i class="fas fa-trash"></i> Cancelar</a>
                         <button type="button" id="fin_pedido" class="btn btn-primary float-right" style="margin-right: 5px;"><i class="far fa-credit-card"></i> Finalizar</button>
                       </div>
                     </div>
@@ -152,8 +152,33 @@
                     data: {carrito: carrito, provider: provider, _token: token},
                     url:"{{ Route('orders.store') }}",
                     success: function(respuesta) {
-                        // *** Agregar mensaje de exito ***
-                        console.log(respuesta);
+
+                        if(respuesta === 'exito') { 
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 3000,
+                                timerProgressBar: false,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                                })
+
+                                Toast.fire({
+                                icon: 'success',
+                                title: 'Pedido registrado'
+                                })
+                        } else {
+                            Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Algo salio mal!',
+                            footer: '<p>Comuniquese con el administrador.</p>'
+                            })
+                        } 
+                        
                     }
                 });
             });

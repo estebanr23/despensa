@@ -53,3 +53,14 @@
     border-radius:5px; 
     font-weight:600;
 }
+
+/* btn cerrar sesion */
+.cerrar-sesion {
+    border-radius: 10px;
+    border: 1px solid var(--leter-color);
+}
+.cerrar-sesion:hover {
+    cursor: pointer;
+    border: 1px solid var(--sidebar-btn);
+    background-color: var(--sidebar-btn);
+}
