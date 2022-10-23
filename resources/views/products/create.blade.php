@@ -20,9 +20,15 @@
                 </div>
                 </div>
                 <!-- /.card-header -->
+
                 <div class="card-body">
-                    <form action="{{ Route('products.store') }}" method="POST">
-                        @csrf
+                    
+                    <!-- Validacion -->
+                    <div class="alert alert-danger" style="display: none">
+                        <ul id="msg-error"></ul>
+                    </div>
+
+                    <form action="#" id="form-porducts" method="POST">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -33,7 +39,7 @@
         
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Nombre</label>
-                                    <input type="text" class="form-control" id="nombre_producto" name="nombre_prod" placeholder="Nombre de Producto" required>
+                                    <input type="text" class="form-control" id="nombre_prod" name="nombre_prod" placeholder="Nombre de Producto" required>
                                 </div>
                                 <!-- /.form-group -->
                             </div>
@@ -73,7 +79,7 @@
         
                         <div class="row">
                             <div class="col-md-2">
-                                <button type="submit" class="btn btn-block btn-success">Guardar</button>
+                                <button type="submit" id="agregar-producto" class="btn btn-block btn-success">Guardar</button>
                             </div>
                         </div>
                         <!-- /.row -->
@@ -87,3 +93,74 @@
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        $('#agregar-producto').on('click', function(e) {
+            e.preventDefault();
+            token = "{{ csrf_token() }}";
+            msg_error = $('#msg-error');
+
+            data = {
+                _token: token,
+                codigo: $('#codigo').val(),
+                nombre_prod: $('#nombre_prod').val(),
+                category_id: $('#category_id').val(),
+                precio_prod: $('#precio_prod').val(),
+                stock_prod: $('#stock_prod').val(),
+                stock_prod_min: $('#stock_prod_min').val(),
+            }
+
+            $.ajax({
+                type:"post",
+                url:"{{ Route('products.store') }}",
+                data: data,
+                success: function(respuesta) {
+                    if(respuesta === 'exito') {
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: false,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                            })
+
+                            Toast.fire({
+                            icon: 'success',
+                            title: 'Producto Agregado'
+                            })
+
+                            $('.alert-danger').hide();
+                            $('#form-porducts input').val('');
+                    }
+                },
+                error: function(respuesta) {
+                    const { responseJSON: { errors } } = respuesta;
+
+                    if(errors) {
+                        for(const e in errors) {
+                        // console.log(errors[e]);
+                        element = `<li>${errors[e]}</li>`;
+                        msg_error.append(element);
+                        }
+
+                        $('.alert-danger').show();
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Algo salio mal!',
+                            footer: '<p>Comuniquese con el administrador.</p>'
+                            })
+                    }
+                    
+                } 
+            });
+
+        });
+    </script>
+@endpush

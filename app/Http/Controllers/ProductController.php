@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductStore;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
-
+use Illuminate\Database\QueryException;
 
 class ProductController extends Controller
 {
@@ -18,22 +19,24 @@ class ProductController extends Controller
 
     public function create() {
         $categories = Category::all();
-
         return view('products.create', compact('categories'));
     }
 
-    public function store(Request $request) {
+    public function store(ProductStore $request) {
 
-        $request->validate([
+        /* $request->validate([
             'codigo' => 'required|unique:products,codigo|max:10',
             'nombre_prod' => 'required|string|unique:products,nombre_prod|max:60',
             'precio_prod' => 'required|numeric',
             'stock_prod' => 'required|integer',
-        ]);
+        ]); */
 
-        $product = Product::create($request->all());
-        
-        return redirect()->route('products.index');
+        try {
+            $product = Product::create($request->all());
+            return 'exito';
+        } catch (QueryException $exception) {
+            return 'error';
+        }
     }
 
     public function edit($id) {

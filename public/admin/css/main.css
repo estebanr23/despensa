@@ -58,9 +58,15 @@
 .cerrar-sesion {
     border-radius: 10px;
     border: 1px solid var(--leter-color);
+    line-height: normal;
 }
 .cerrar-sesion:hover {
     cursor: pointer;
-    border: 1px solid var(--sidebar-btn);
-    background-color: var(--sidebar-btn);
+    border: 1px solid var(--leter-color);
+    background-color: var(--leter-color);
+}
+
+/* Mesanjes de error */
+#msg-error {
+    margin-bottom: 0;
 }

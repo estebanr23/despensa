@@ -347,13 +347,13 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="{{ Route('users.create') }}" class="nav-link">
                     <i class="fas fa-angle-right nav-icon"></i>
                     <p>Agregar Usuario</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="{{ Route('users.index') }}" class="nav-link">
                     <i class="fas fa-angle-right nav-icon"></i>
                     <p>Lista de Usuarios</p>
                   </a>
