@@ -34,12 +34,24 @@ class UserController extends Controller
         return redirect()->route('users.index');
     }
 
-    public function edit() {
-        
+    public function edit($id) {
+        $user = User::find($id);
+        return view('users.edit', compact('user'));
     }
 
-    public function update() {
-        
+    public function update(Request $request, User $user) {
+        if($request->password) {
+            $user->name = $request->name;
+            $user->user = $request->user;
+            $user->password = Hash::make($request->password);
+            $user->save();
+        } else {
+            $user->name = $request->name;
+            $user->user = $request->user;
+            $user->save();
+        }
+
+        return redirect()->route('users.index');
     }
 
     public function show() {

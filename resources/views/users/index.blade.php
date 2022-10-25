@@ -29,7 +29,7 @@
                                     <td>{{ $user->user }}</td>
                                     <td>Roles</td>
                                     <td>
-                                        <a href="" title="Editar"><i class="fa fa-sharp fa-solid fa-marker"></i></a>
+                                        <a href="{{ Route('users.edit', $user->id) }}" title="Editar"><i class="fa fa-sharp fa-solid fa-marker"></i></a>
                                         {{-- <form class="form-icon" action="{{ Route('users.destroy', $user->id) }}" method="POST">
                                             @csrf
                                             @method('delete')

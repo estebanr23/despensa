@@ -47,26 +47,39 @@ class ProductController extends Controller
     }
 
     public function update(Request $request, Product $product) {
+
+        $messages = [
+            'codigo.required' => 'El codigo es requerido.',
+            'codigo.unique' => 'El codigo ya existe.',
+            'nombre_prod.required' => 'El nombre es requerido.',
+            'nombre_prod.unique' => 'El nombre ya existe.',
+            'precio_prod.required' => 'El precio es requerido.',
+            'stock_prod.required' => 'La cantidad es requerida.',
+        ];
         
         // Para validar un campo unico sin que arroje error al actualizar el campo por lo que ya existe ese codigo o nombre en la tabla de product
         Validator::make($request->all(), [
             'codigo' => [
                 'required',
-                Rule::unique('products')->ignore($request->codigo),
+                Rule::unique('products', 'codigo')->ignore($request->id),
                 'max:10'
             ],
             'nombre_prod' => [
                 'required',
-                Rule::unique('products')->ignore($request->nombre_prod),
+                Rule::unique('products')->ignore($request->id),
                 'max:60'
             ],
             'precio_prod' => 'required|numeric',
             'stock_prod' => 'required|integer',
-        ]);
+        ], $messages)->validate();
 
-        $product->update($request->all());
-
-        return redirect()->route('products.index');
+        
+        try {
+            $product->update($request->all());
+            return 'exito';
+        } catch (QueryException $exception) {
+            return 'error';
+        }
     }
 
     public function show() {

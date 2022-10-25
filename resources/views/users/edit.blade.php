@@ -21,13 +21,15 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <form action="{{ Route('users.store') }}" method="POST">
+                    <form action="{{ Route('users.update', $user) }}" method="POST">
                         @csrf
+                        @method('put')
+
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Nombre</label>
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Nombre">
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Nombre" value="{{ old('name', $user->name) }}">
                                 </div>
                                 <!-- /.form-group -->
 
@@ -41,13 +43,15 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Usuario</label>
-                                    <input type="text" class="form-control" id="user" name="user" placeholder="Usuario">
+                                    <input type="text" class="form-control" id="user" name="user" placeholder="Usuario" value="{{ old('user', $user->user) }}">
                                 </div>
                                 <!-- /.form-group -->
                                 
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Confirmar Contraseña</label>
                                     <input type="password" class="form-control" id="password_confirmed" name="password_confirmed" placeholder="Repetir contraseña">
+                                    <span id="password-ok" style="color: green; display:none;">* Las contraseñas coinciden.</span>
+                                    <span id="password-error" style="color: red; display:none;">* Las contraseñas no coinciden.</span>
                                 </div>
                                 <!-- /.form-group -->
                             </div>
@@ -57,7 +61,7 @@
 
                         <div class="row">
                             <div class="col-md-2">
-                                <button type="submit" class="btn btn-block btn-success">Guardar</button>
+                                <button type="submit" class="btn btn-block btn-success">Actualizar</button>
                             </div>
                         </div>
                         <!-- /.row -->
@@ -73,3 +77,18 @@
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        $('#password_confirmed').on('keyup', function() {
+            password = $('#password').val();
+            if($(this).val() === password) {
+                $('#password-ok').show();
+                $('#password-error').hide();
+            } else {
+                $('#password-error').show();
+                $('#password-ok').hide();
+            }
+        });
+    </script>
+@endpush

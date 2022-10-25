@@ -21,10 +21,13 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <form action="{{ Route('products.update', $product) }}" method="POST">
-                        @csrf
-                        @method('put')
 
+                    <!-- Validacion -->
+                    <div class="alert alert-danger" style="display: none">
+                        <ul id="msg-error"></ul>
+                    </div>
+
+                    <form action="#" method="POST">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -35,7 +38,7 @@
         
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Nombre</label>
-                                    <input type="text" class="form-control" id="nombre_producto" name="nombre_prod" placeholder="Nombre de Producto" value="{{ old('nombre_prod', $product->nombre_prod) }}" required>
+                                    <input type="text" class="form-control" id="nombre_prod" name="nombre_prod" placeholder="Nombre de Producto" value="{{ old('nombre_prod', $product->nombre_prod) }}" required>
                                 </div>
                                 <!-- /.form-group -->
                             </div>
@@ -78,7 +81,7 @@
         
                         <div class="row">
                             <div class="col-md-2">
-                                <button type="submit" class="btn btn-block btn-success">Actualizar</button>
+                                <button type="submit" id="actualizar-producto" data-id="{{ $product->id }}" class="btn btn-block btn-success">Actualizar</button>
                             </div>
                         </div>
                         <!-- /.row -->
@@ -92,3 +95,78 @@
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        $('#actualizar-producto').on('click', function(e) {
+            e.preventDefault();
+            id = $(this).attr('data-id');
+            token = "{{ csrf_token() }}";
+            msg_error = $('#msg-error');
+            msg_error.empty();
+
+            data = {
+                _method: 'PUT',
+                _token: token,
+                id: id,
+                codigo: $('#codigo').val(),
+                nombre_prod: $('#nombre_prod').val(),
+                category_id: $('#category_id').val(),
+                precio_prod: $('#precio_prod').val(),
+                stock_prod: $('#stock_prod').val(),
+                stock_prod_min: $('#stock_prod_min').val(),
+            }
+
+            $.ajax({
+                type:"post",
+                url:"/products/"+id,
+                data: data,
+                success: function(respuesta) {
+                    if(respuesta === 'exito') {
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: false,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                            })
+
+                            Toast.fire({
+                            icon: 'success',
+                            title: 'Producto Actualizado'
+                            })
+
+                            $('.alert-danger').hide();
+                            $('#form-porducts input').val('');
+                    }
+                },
+                error: function(respuesta) {
+                    const { responseJSON: { errors } } = respuesta;
+
+                    if(errors) {
+                        for(const e in errors) {
+                        // console.log(errors[e]);
+                        element = `<li>${errors[e]}</li>`;
+                        msg_error.append(element);
+                        }
+
+                        $('.alert-danger').show();
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Algo salio mal!',
+                            footer: '<p>Comuniquese con el administrador.</p>'
+                            })
+                    }
+                    
+                } 
+            });
+
+        });
+    </script>
+@endpush
