@@ -32,11 +32,12 @@
                                 <td>{{ $provider->telefono_prov }}</td>
                                 <td>
                                     <a href="{{ Route('providers.edit', $provider->id) }}" title="Editar"><i class="fa fa-sharp fa-solid fa-marker"></i></a>
-                                    <form class="form-icon" action="{{ Route('providers.destroy', $provider->id) }}" method="POST">
+                                    {{-- <form class="form-icon" action="{{ Route('providers.destroy', $provider->id) }}" method="POST">
                                         @csrf
                                         @method('delete')
                                         <button type="submit" title="Eliminar" class="btn-icon"><i class="fa fa-sharp fa-solid fa-trash"></i></button>
-                                    </form>
+                                    </form> --}}
+                                    <button class="btn-icon eliminar-provedor" title="Eliminar" data-id="{{ $provider->id }}"><i class="fa fa-sharp fa-solid fa-trash"></i></button>
                                 </td>
                             </tr>
                         @endforeach  
@@ -64,3 +65,50 @@
         <!-- /.container-fluid -->
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        // Eliminar provedor con todos sus items
+        $('.eliminar-provedor').on('click', function(){
+            id = $(this).attr('data-id');
+            token = "{{ csrf_token() }}";
+
+            Swal.fire({
+                title: 'Desea eliminar?',
+                text: "Una vez eliminado el proveedor no se podra recuperar.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, eliminar'
+            }).then((result) => {
+
+                if (!result.isConfirmed) return;
+                
+                $.ajax({
+                    type:'post',
+                    url:"/providers/"+id,
+                    data: { _token: token, _method: 'delete' },
+                    success:function(respuesta) {
+
+                        if(respuesta === 'exito') { 
+                            Swal.fire(
+                            'Correcto',
+                            'Proveedor Eliminado',
+                            'success'
+                            )
+                        } else {
+                            Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Algo salio mal!',
+                            footer: '<p>Comuniquese con el administrador.</p>'
+                            })
+                        } 
+                    }
+
+                });
+            })
+        });
+    </script>
+@endpush

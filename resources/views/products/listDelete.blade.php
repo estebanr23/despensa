@@ -33,7 +33,8 @@
                                 <td>{{ $product->precio_prod }}</td>
                                 <td>{{ $product->stock_prod }}</td>
                                 <td>
-                                    <a href="{{ Route('products.restoreProduct', $product->id) }}"><i class="fa fa-solid fa-eye"></i></a>
+                                    {{-- <a href="{{ Route('products.restoreProduct', $product->id) }}"><i class="fa fa-solid fa-eye"></i></a> --}}
+                                    <button class="btn-icon restaurar-producto" title="Eliminar" data-id="{{ $product->id }}"><i class="fa fa-solid fa-eye"></i></button>
                                 </td>
                             </tr>
                         @endforeach
@@ -61,3 +62,48 @@
         <!-- /.container-fluid -->
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        // Eliminar provedor con todos sus items
+        $('.restaurar-producto').on('click', function(){
+            id = $(this).attr('data-id');
+            token = "{{ csrf_token() }}";
+
+            Swal.fire({
+                title: 'Restaurar Producto?',
+                text: "El producto estara disponible nuevamente en el stock.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, eliminar'
+            }).then((result) => {
+
+                if (!result.isConfirmed) return;
+                
+                $.ajax({
+                    type:'get',
+                    url:"/products/restoreProduct/"+id,
+                    success:function(respuesta) {
+                        if(respuesta === 'exito') { 
+                            Swal.fire(
+                            'Correcto',
+                            'Producto Restaurado',
+                            'success'
+                            )
+                        } else {
+                            Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Algo salio mal!',
+                            footer: '<p>Comuniquese con el administrador.</p>'
+                            })
+                        } 
+                    }
+
+                });
+            })
+        });
+    </script>
+@endpush

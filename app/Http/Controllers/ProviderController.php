@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use App\Models\Provider;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 
 class ProviderController extends Controller
 {
@@ -44,29 +45,40 @@ class ProviderController extends Controller
     }
 
     public function update(Request $request, Provider $provider) {
-        
-        $request->validate([
-            'nombre_prov' => 'required|string|max:60',
-            'direccion_prov' => 'required|string|max:100',
-            'telefono_prov' => 'required|max:40',
-        ]);
+
+        $messages = [
+            'nombre_prov.required' => 'El nombre es requerido.',
+            'email_prov.unique' => 'El email ya existe.',
+            'email_prov.required' => 'El email es requerido.',
+            'direccion_prov.required' => 'La direccion es requerida.',
+            'telefono_prov.required' => 'El telefono es requerido.',
+            'telefono_prov.max' => 'El numero de telefono es invalido.',
+        ];
 
         Validator::make($request->all(), [
             'email_prov' => [
                 'required',
-                Rule::unique('providers')->ignore($request->email_prov),
+                Rule::unique('providers')->ignore($provider->id),
                 'max:60'
             ],
-        ]);
+            'nombre_prov' => 'required|string|max:60',
+            'direccion_prov' => 'required|string|max:100',
+            'telefono_prov' => 'required|max:20',
+        ], $messages)->validate();
 
-        $provider->update($request->all());
-
-        return redirect()->route('providers.index');
+        try {
+            $provider->update($request->all());
+            return redirect()->route('providers.index');
+        } catch (QueryException $exception) {
+            return back()->withErrors('No se pudo editar el proveedor. Por favor comuniquese con el administrador.')->withInput();
+        }
+        
     }
 
     public function destroy($id) {
         $provider = Provider::find($id);
         $provider->delete();
-        return redirect()->route('providers.index');
+        // return redirect()->route('providers.index');
+        return 'exito';
     }
 }

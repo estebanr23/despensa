@@ -89,7 +89,7 @@ class ProductController extends Controller
     public function destroy($id) {
         $product = Product::find($id);
         $product->delete();
-        return redirect()->route('products.index');
+        return 'exito';
     }
 
     public function listDelete() {
@@ -100,7 +100,7 @@ class ProductController extends Controller
     public function restoreProduct($id) {
         $product = Product::onlyTrashed()->where('id', $id)->first();
         $product->restore();
-        return redirect()->route('products.listDelete');
+        return 'exito';
     }
 
 }
