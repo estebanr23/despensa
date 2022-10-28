@@ -1,6 +1,6 @@
 @extends('layout.plantilla')
 
-@section('title', 'Nuevo Producto')
+@section('title', 'Editar Categoria')
     
 @section('content')
     <section class="content">
@@ -21,7 +21,13 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <form action="{{ Route('categories.update', $category->id) }}" method="POST">
+
+                    <!-- Validacion -->
+                    <div class="alert alert-danger" style="display: none">
+                        <ul id="msg-error"></ul>
+                    </div>
+
+                    <form id="form-categories" action="#" method="POST">
                         @csrf
                         @method('put')
                         <div class="row">
@@ -43,7 +49,7 @@
         
                         <div class="row">
                             <div class="col-md-2">
-                                <button type="submit" class="btn btn-block btn-success">Guardar</button>
+                                <button type="submit" id="actualizar-categoria" data-id="{{ $category->id }}" class="btn btn-block btn-success">Actualizar</button>
                             </div>
                         </div>
                         <!-- /.row -->
@@ -57,3 +63,71 @@
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        $('#actualizar-categoria').on('click', function(e) {
+            e.preventDefault();
+            id = $(this).attr('data-id');
+            token = "{{ csrf_token() }}";
+            msg_error = $('#msg-error');
+            msg_error.empty();
+
+            data = {
+                _method: 'put',
+                _token: token,
+                nombre_cat: $('#nombre_cat').val(),
+                descripcion: $('#descripcion').val(),
+            }
+
+            $.ajax({
+                type:"post",
+                url:"/categories/"+id,
+                data: data,
+                success: function(respuesta) {
+                    if(respuesta === 'exito') {
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: false,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                            })
+
+                            Toast.fire({
+                            icon: 'success',
+                            title: 'Categoria Actualizada'
+                            })
+
+                            $('.alert-danger').hide();
+                    }
+                },
+                error: function(respuesta) {
+                    const { responseJSON: { errors } } = respuesta;
+
+                    if(errors) { // Mostrar errores de validacion
+                        for(const e in errors) {
+                        element = `<li>${errors[e]}</li>`;
+                        msg_error.append(element);
+                        }
+
+                        $('.alert-danger').show();
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Algo salio mal!',
+                            footer: '<p>Comuniquese con el administrador.</p>'
+                            })
+                    }
+                    
+                } 
+            });
+
+        });
+    </script>
+@endpush

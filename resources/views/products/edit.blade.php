@@ -141,7 +141,6 @@
                             })
 
                             $('.alert-danger').hide();
-                            $('#form-porducts input').val('');
                     }
                 },
                 error: function(respuesta) {

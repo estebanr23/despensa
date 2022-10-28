@@ -8,17 +8,29 @@
             <!-- SELECT2 EXAMPLE -->
             <div class="card card-default">
                 <div class="card-header">
-                <h3 class="card-title">Select2 (Default Theme)</h3>
+                    <h3 class="card-title">Agregar Usuario</h3>
 
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                    </button>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                        <i class="fas fa-times"></i>
+                        </button>
+                    </div>
                 </div>
-                </div>
+
+                <!-- Errores -->
+                @if ($errors->any())
+                    <div class="alert alert-danger" style="padding-bottom: 0; margin-bottom: 0;">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 <!-- /.card-header -->
                 <div class="card-body">
                     <form action="{{ Route('users.store') }}" method="POST">
@@ -48,6 +60,8 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Confirmar Contraseña</label>
                                     <input type="password" class="form-control" id="password_confirmed" name="password_confirmed" placeholder="Repetir contraseña">
+                                    <span id="password-ok" style="color: green; display:none;">* Las contraseñas coinciden.</span>
+                                    <span id="password-error" style="color: red; display:none;">* Las contraseñas no coinciden.</span>
                                 </div>
                                 <!-- /.form-group -->
                             </div>
@@ -57,7 +71,7 @@
 
                         <div class="row">
                             <div class="col-md-2">
-                                <button type="submit" class="btn btn-block btn-success">Guardar</button>
+                                <button type="submit" class="btn btn-block btn-success btn-verificar">Guardar</button>
                             </div>
                         </div>
                         <!-- /.row -->
@@ -73,3 +87,20 @@
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        $('#password_confirmed').on('keyup', function() {
+            password = $('#password').val();
+            if($(this).val() === password) {
+                $('#password-ok').show();
+                $('#password-error').hide();
+                $('.btn-verificar').removeAttr('disabled', 'disabled');
+            } else {
+                $('#password-error').show();
+                $('#password-ok').hide();
+                $('.btn-verificar').attr('disabled', 'disabled');
+            }
+        });
+    </script>
+@endpush

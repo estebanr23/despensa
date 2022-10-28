@@ -1,6 +1,6 @@
 @extends('layout.plantilla')
 
-@section('title', 'Nuevo Producto')
+@section('title', 'Nueva Categoria')
     
 @section('content')
     <section class="content">
@@ -21,8 +21,13 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <form action="{{ Route('categories.store') }}" method="POST">
-                        @csrf
+
+                    <!-- Validacion -->
+                    <div class="alert alert-danger" style="display: none">
+                        <ul id="msg-error"></ul>
+                    </div>
+
+                    <form id="form-categories" action="#" method="POST">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -42,7 +47,7 @@
         
                         <div class="row">
                             <div class="col-md-2">
-                                <button type="submit" class="btn btn-block btn-success">Guardar</button>
+                                <button type="submit" id="agregar-categoria" class="btn btn-block btn-success">Guardar</button>
                             </div>
                         </div>
                         <!-- /.row -->
@@ -56,3 +61,71 @@
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        $('#agregar-categoria').on('click', function(e) {
+            e.preventDefault();
+            token = "{{ csrf_token() }}";
+            msg_error = $('#msg-error');
+            msg_error.empty();
+
+            data = {
+                _token: token,
+                nombre_cat: $('#nombre_cat').val(),
+                descripcion: $('#descripcion').val(),
+            }
+
+            $.ajax({
+                type:"post",
+                url:"{{ Route('categories.store') }}",
+                data: data,
+                success: function(respuesta) {
+                    if(respuesta === 'exito') {
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: false,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                            })
+
+                            Toast.fire({
+                            icon: 'success',
+                            title: 'Categoria Agregada'
+                            })
+
+                            $('.alert-danger').hide();
+                            $('#form-categories input').val('');
+                            $('#form-categories textarea').val('');
+                    }
+                },
+                error: function(respuesta) {
+                    const { responseJSON: { errors } } = respuesta;
+
+                    if(errors) { // Mostrar errores de validacion
+                        for(const e in errors) {
+                        element = `<li>${errors[e]}</li>`;
+                        msg_error.append(element);
+                        }
+
+                        $('.alert-danger').show();
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Algo salio mal!',
+                            footer: '<p>Comuniquese con el administrador.</p>'
+                            })
+                    }
+                    
+                } 
+            });
+
+        });
+    </script>
+@endpush

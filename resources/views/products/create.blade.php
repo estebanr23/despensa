@@ -100,6 +100,7 @@
             e.preventDefault();
             token = "{{ csrf_token() }}";
             msg_error = $('#msg-error');
+            msg_error.empty();
 
             data = {
                 _token: token,

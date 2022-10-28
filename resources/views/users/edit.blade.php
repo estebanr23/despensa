@@ -8,17 +8,29 @@
             <!-- SELECT2 EXAMPLE -->
             <div class="card card-default">
                 <div class="card-header">
-                <h3 class="card-title">Select2 (Default Theme)</h3>
+                    <h3 class="card-title">Editar Usuario</h3>
 
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                    </button>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                        <i class="fas fa-times"></i>
+                        </button>
+                    </div>
                 </div>
-                </div>
+
+                <!-- Errores -->
+                @if ($errors->any())
+                    <div class="alert alert-danger" style="padding-bottom: 0">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 <!-- /.card-header -->
                 <div class="card-body">
                     <form action="{{ Route('users.update', $user) }}" method="POST">
@@ -61,7 +73,7 @@
 
                         <div class="row">
                             <div class="col-md-2">
-                                <button type="submit" class="btn btn-block btn-success">Actualizar</button>
+                                <button type="submit" class="btn btn-block btn-success btn-verificar">Actualizar</button>
                             </div>
                         </div>
                         <!-- /.row -->
@@ -85,9 +97,11 @@
             if($(this).val() === password) {
                 $('#password-ok').show();
                 $('#password-error').hide();
+                $('.btn-verificar').removeAttr('disabled', 'disabled');
             } else {
                 $('#password-error').show();
                 $('#password-ok').hide();
+                $('.btn-verificar').attr('disabled', 'disabled');
             }
         });
     </script>
