@@ -1,6 +1,6 @@
 @extends('layout.plantilla')
 
-@section('title', 'Listado de Ventas')
+@section('title', 'Creditos')
 
 @section('content')
 
@@ -10,7 +10,7 @@
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Productos</h5>
+                    <h5 class="modal-title">Creditos</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -32,7 +32,7 @@
             <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                <h3 class="card-title">Lista de Ventas Realizadas</h3>
+                <h3 class="card-title">Lista de Fiados Realizados</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -43,28 +43,23 @@
                             <th>Fecha</th>
                             <th>Hora</th>
                             <th>Total</th>
+                            <th>Cliente</th>
                             <th>Usuario</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($sales as $sale)
+                        @foreach ($credits as $credit)
                             <tr>
-                                <td>{{ $sale->id }}</td>
-                                <td>{{ date('d-m-Y', strtotime($sale->created_at)) }}</td>
-                                <td>{{ date('H:m', strtotime($sale->created_at)) }} hs</td>
-                                <td>$ {{ $sale->total_sale }}</td>
-                                <td>{{ $sale->user->name }}</td>
+                                <td>{{ $credit->id }}</td>
+                                <td>{{ date('d-m-Y', strtotime($credit->created_at)) }}</td>
+                                <td>{{ date('H:m', strtotime($credit->created_at)) }} hs</td>
+                                <td>$ {{ $credit->total_sale }}</td>
+                                <td>{{ $credit->customer->nombre_cliente }}</td>
+                                <td>{{ $credit->user->name }}</td>
                                 <td>
-                                    {{-- <a href="{{ Route('sales.show', $sale) }}" title="Ver" id="show-modal"><i class="fa fa-solid fa-eye"></i></a> --}}
-                                    <a id="{{ $sale->id }}" class="openBtn"><i class="fa fa-solid fa-eye"></i></a>
-                                    {{-- <a href="#"><i class="fa fa-sharp fa-solid fa-trash"></i></a> --}}
-                                    {{-- <form class="form-icon" action="{{ Route('sales.destroy', $sale->id) }}}" method="POST">
-                                        @csrf
-                                        @method('delete')
-                                        <button type="submit" title="Eliminar" class="btn-icon"><i class="fa fa-sharp fa-solid fa-trash"></i></button>
-                                    </form> --}}
-                                    <button class="btn-icon eliminar-venta" title="Eliminar" data-id="{{ $sale->id }}"><i class="fa fa-sharp fa-solid fa-trash"></i></button>
+                                    <a id="{{ $credit->id }}" class="openBtn"><i class="fa fa-solid fa-eye"></i></a>
+                                    <button class="btn-icon eliminar-venta" title="Eliminar" data-id="{{ $credit->id }}"><i class="fa fa-sharp fa-solid fa-trash"></i></button>
                                 </td>
                             </tr>
                         @endforeach
@@ -75,6 +70,7 @@
                             <th>Fecha</th>
                             <th>Hora</th>
                             <th>Total</th>
+                            <th>Cliente</th>
                             <th>Usuario</th>
                             <th>Acciones</th>
                         </tr>

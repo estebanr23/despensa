@@ -37,9 +37,35 @@
                                 <input type="number" class="form-control" id="cant_order_prod" name="cant_order_prod" placeholder="Cantidad de Producto" min="1" value="1">
                             </div>
                             <!-- /.form-group -->
+
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" value="1" id="check-fiado">
+                                <label class="form-check-label" for="check-fiado">Crear Fiado</label>
+                            </div>
                         </div>
                     </div>
                     <!-- /.row -->
+
+                    <div class="row" id="datos_cliente" style="display: none">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Cliente</label>
+                                <select name="cliente_id" id="cliente_id" class="form-control select2" style="width: 100%;">
+                                    <option value="" disabled selected>Seleccionar</option>
+                                    @foreach ($customers as $customer)
+                                        <option value="{{ $customer->id }}">{{ $customer->nombre_cliente }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <!-- /.form-group -->
+
+                            <div class="form-group">
+                                <label for="cliente">Nuevo Cliente</label>
+                                <input type="text" class="form-control" id="nombre_cliente" name="nombre_cliente" placeholder="Nombre de Cliente">
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+                    </div>
 
                     <div class="row">
                         <div class="col-md-2">
@@ -110,6 +136,7 @@
         $(document).ready(function(){
             let carrito = [];
             let total=0;
+            let credito;
 
             $("#agregar_item").click(function() {
                 const product = $('#product_id  option:selected');
@@ -132,7 +159,7 @@
                 const busqueda = carrito.find((element) => element.product_id === item.product_id);
                 if(!busqueda) {
                     carrito.push(item);
-                    console.log(carrito);
+                    // console.log(carrito);
                     crearElement(item);
                 }
             }
@@ -158,11 +185,20 @@
 
             // Guardar datos
             $('#fin_venta').on('click', function() {
-
+                credito = $('input[type=checkbox]:checked').val();
                 let token = "{{ csrf_token() }}";
+                let cliente;
+
+                if(credito) {
+                    cliente = $('#cliente_id option:selected').val();
+                    if(!cliente) {
+                        cliente = $('#nombre_cliente').val();
+                    }
+                }
+
                 $.ajax({
                     type: "post",
-                    data: {carrito: carrito, total_sale: total, _token: token},
+                    data: {carrito: carrito, credito: credito, total_sale: total, cliente: cliente, _token: token},
                     url:"{{ Route('sales.store') }}",
                     success: function(respuesta) {
 
@@ -203,6 +239,17 @@
                 carrito = carrito.filter((element) => element.product_id !== id);
                 calcularTotal();
                 padre.remove();
+            });
+
+            // Checkbox
+            $('#check-fiado').change(function () {
+                let check = $('#check-fiado')[0].checked;
+
+                if(check) {
+                    $('#datos_cliente').show();
+                } else {
+                    $('#datos_cliente').hide();
+                }
             });
 
         });

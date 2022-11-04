@@ -47,6 +47,7 @@ Route::resource('products', ProductController::class)->middleware('auth');
 Route::resource('providers', ProviderController::class)->middleware('auth');
 
 // Ventas
+Route::get('sales/credits', [SaleController::class, 'credits'])->name('sales.credits')->middleware('auth');
 Route::resource('sales', SaleController::class)->middleware('auth');
 
 // Pedidos

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use App\Models\Sale;
 use App\Models\Product;
 use App\Models\ItemSale;
@@ -11,17 +12,25 @@ use Illuminate\Support\Facades\DB;
 class SaleController extends Controller
 {
     public function index() {
-        $sales = Sale::all();
+        $sales = Sale::where('credito', null)->get();
         return view('sales.index', compact('sales'));
+    }
+
+    public function credits() {
+        $credits = Sale::where('credito', 1)->get();
+        return view('sales.credits', compact('credits'));
     }
 
     public function create() {
         $products = Product::all();
+        $customers = Customer::all();
 
-        return view('sales.create', compact('products'));
+        return view('sales.create', compact('products', 'customers'));
     }
 
     public function store(Request $request) {
+        // return $request->credito;
+
         $items = $request->carrito;
 
         // *** Agregar validacion de datos ***
@@ -29,10 +38,30 @@ class SaleController extends Controller
         // *** Agregar exception ***
         $sale = new Sale();
 
-        $sale->fill([
-            'total_sale' => $request->total_sale,
-            'user_id' => 1,
-        ]);
+        if($request->credito) {
+
+            $cliente = Customer::find($request->cliente);
+            if(!$cliente) {
+                $cliente = new Customer();
+                $cliente->nombre_cliente = $request->cliente;
+                $cliente->save();
+            }
+
+            $sale->fill([
+                'total_sale' => $request->total_sale,
+                'credito' => 1,
+                'customer_id' => $cliente->id,
+                'user_id' => 1,
+            ]);
+
+        } else {
+
+            $sale->fill([
+                'total_sale' => $request->total_sale,
+                'user_id' => 1,
+            ]);
+        }
+        
         $sale->save();
 
         // *** Agregar exception ***

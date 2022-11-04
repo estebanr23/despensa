@@ -15,12 +15,14 @@ return new class extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
-        /*  $table->date('fecha_sale');
-            $table->time('hora_sale'); */
             $table->float('total_sale');
+            $table->boolean('credito')->nullable(true);
 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+
+            $table->unsignedBigInteger('customer_id')->nullable(true);
+            $table->foreign('customer_id')->references('id')->on('customers');
 
             $table->timestamps();
         });

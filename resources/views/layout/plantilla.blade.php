@@ -227,6 +227,12 @@
                     <p>Ventas Realizadas</p>
                   </a>
                 </li>
+                <li class="nav-item">
+                  <a href="{{ Route('sales.credits') }}" class="nav-link">
+                    <i class="fas fa-angle-right nav-icon"></i>
+                    <p>Fiados Realizados</p>
+                  </a>
+                </li>
               </ul>
             </li>
 
