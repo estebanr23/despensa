@@ -60,6 +60,7 @@
                                 <td>
                                     <a id="{{ $credit->id }}" class="openBtn"><i class="fa fa-solid fa-eye"></i></a>
                                     <button class="btn-icon eliminar-venta" title="Eliminar" data-id="{{ $credit->id }}"><i class="fa fa-sharp fa-solid fa-trash"></i></button>
+                                    <button class="btn-icon generar-venta" title="Generar venta" data-id="{{ $credit->id }}"><i class="fa fa-solid fa-user-check"></i></button>
                                 </td>
                             </tr>
                         @endforeach
@@ -143,6 +144,48 @@
                             Swal.fire(
                             'Correcto',
                             'Venta Eliminada',
+                            'success'
+                            )
+                        } else {
+                            Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Algo salio mal!',
+                            footer: '<p>Comuniquese con el administrador.</p>'
+                            })
+                        } 
+                    }
+
+                });
+
+            })
+
+        });
+
+        // Generar venta con todos sus items
+        $('.generar-venta').on('click', function(){
+            id = $(this).attr('data-id');
+
+            Swal.fire({
+                title: 'Desea generar la venta?',
+                text: "Una vez generada la venta no se podra modificar.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, generar'
+            }).then((result) => {
+
+                if (!result.isConfirmed) return;
+                
+                $.ajax({
+                    type:'get',
+                    url:"/sales/generarVenta/"+id,
+                    success:function(respuesta) {
+                        if(respuesta === 'exito') { 
+                            Swal.fire(
+                            'Correcto',
+                            'Venta Generada',
                             'success'
                             )
                         } else {

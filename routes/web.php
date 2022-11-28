@@ -48,7 +48,9 @@ Route::resource('providers', ProviderController::class)->middleware('auth');
 
 // Ventas
 Route::get('sales/credits', [SaleController::class, 'credits'])->name('sales.credits')->middleware('auth');
+Route::get('sales/generarVenta/{sale}', [SaleController::class, 'generarVenta'])->name('sales.generarVenta')->middleware('auth');
 Route::resource('sales', SaleController::class)->middleware('auth');
+
 
 // Pedidos
 Route::delete('orders/destroyItem/{item}', [OrderController::class, 'destroyItem'])->name('orders.destroyItem')->middleware('auth');

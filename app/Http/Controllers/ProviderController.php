@@ -22,12 +22,21 @@ class ProviderController extends Controller
 
     public function store(Request $request) {
 
+        $messages = [
+            'nombre_prov.required' => 'El nombre es requerido.',
+            'email_prov.unique' => 'El email ya existe.',
+            'email_prov.required' => 'El email es requerido.',
+            'direccion_prov.required' => 'La direccion es requerida.',
+            'telefono_prov.required' => 'El telefono es requerido.',
+            'telefono_prov.max' => 'El numero de telefono es invalido.',
+        ];
+
         $request->validate([
             'nombre_prov' => 'required|string|max:60',
             'email_prov' => 'required|unique:providers,nombre_prov|max:60',
             'direccion_prov' => 'required|string|max:100',
             'telefono_prov' => 'required|max:40',
-        ]);
+        ], $messages);
 
         $provider = Provider::create($request->all());
         

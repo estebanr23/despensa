@@ -122,4 +122,24 @@ class SaleController extends Controller
         // return view('sales.index', compact('sales'));
     }
 
+    public function generarVenta($id) {
+        $sale = Sale::find($id);
+        $items = $sale->itemsSale;
+
+        
+
+        foreach ($items as $item) {
+            $product = Product::find($item->product_id);
+            $product->stock_prod -= $item->cant_sale_prod;
+            $product->save();
+        }
+        
+        $sale->credito = null;
+        $sale->customer_id = null;
+        $sale->save();
+        
+        return 'exito';
+
+    }
+
 }
