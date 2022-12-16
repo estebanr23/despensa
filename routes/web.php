@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -27,9 +28,12 @@ use Illuminate\Support\Facades\Route;
     return view('welcome');
 }); */
 
-Route::get('/', function () {
+/* Route::get('/', function () {
     return view('index');
-})->middleware('auth');
+})->middleware('auth'); */
+
+// Dashboard
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
 
 // Autenticacion
 Route::get('/login', [LoginController::class, 'login'])->name('login');
