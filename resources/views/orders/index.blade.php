@@ -102,6 +102,14 @@
                             footer: '<p>Comuniquese con el administrador.</p>'
                             })
                         } 
+                    },
+                    error:function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Algo salio mal!',
+                            footer: '<p>Comuniquese con el administrador.</p>'
+                        })
                     }
 
                 });

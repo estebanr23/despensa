@@ -107,17 +107,23 @@ class SaleController extends Controller
     }
 
     public function destroy($id) {
-        $sale = Sale::find($id);
+        $sale = Sale::findOrFail($id);
         $items = $sale->itemsSale;
 
-        foreach ($items as $item) {
-            $product = Product::find($item->product_id);
-            $product->stock_prod += $item->cant_sale_prod;
-            $product->save();
+        try {
+            foreach ($items as $item) {
+                $product = Product::withTrashed()->where('idasasvsd', $item->product_id)->first();
+                $product->stock_prod += $item->cant_sale_prod;
+                $product->save();
+            }
+    
+            $sale->delete();
+            return 'exito';
+            
+        } catch (\Exception $e) {
+            return 'error';
         }
-
-        $sale->delete();
-        return 'exito';
+        
         // return $items;
         // return view('sales.index', compact('sales'));
     }
@@ -125,8 +131,6 @@ class SaleController extends Controller
     public function generarVenta($id) {
         $sale = Sale::find($id);
         $items = $sale->itemsSale;
-
-        
 
         foreach ($items as $item) {
             $product = Product::find($item->product_id);

@@ -96,15 +96,47 @@
         $('.estado-item').on('click', function() {
             id = $(this).attr('data-item');
 
-            $.ajax({
-                type: 'get',
-                url: '/orders/cambiarEstado/'+id,
-                success: function(respuesta) {
+            Swal.fire({
+                title: 'Agregar item?',
+                text: "Agregar al stock el item seleccionado",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, agregar'
+            }).then((result) => {
 
-                    // *** Hacer que cambie el estado dinamicamente. Agregar y quitar clase al span *** 
-                    console.log(respuesta);
-                }
-            });
+                if (!result.isConfirmed) return;
+
+                $.ajax({
+                    type: 'get',
+                    url: '/orders/cambiarEstado/'+id,
+                    success: function(respuesta) {
+                        if (respuesta === 'exito') {
+                            Swal.fire(
+                                'Correcto',
+                                'Item Eliminado',
+                                'success'
+                                )
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Algo salio mal!',
+                                footer: '<p>Comuniquese con el administrador.</p>'
+                                })
+                        }
+                    },
+                    error:function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Algo salio mal!',
+                            footer: '<p>Comuniquese con el administrador.</p>'
+                            })
+                    }
+                });
+            })
         });
 
         // Cargar pedido completo con todos los items

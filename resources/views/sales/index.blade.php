@@ -157,6 +157,15 @@
                             footer: '<p>Comuniquese con el administrador.</p>'
                             })
                         } 
+                    },
+                    error:function(respuesta) {
+                        console.log(respuesta)
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Algo salio mal!',
+                            footer: '<p>Comuniquese con el administrador.</p>'
+                        })
                     }
 
                 });

@@ -89,10 +89,17 @@ class OrderController extends Controller
 
     // Elimar un venta con sus items relacionados
     public function destroy($id) {
-        $order = Order::find($id);
+        $order = Order::findOrFail($id);
+        $items = $order->itemsOrder;
+
+        foreach ($items as $item) {
+            $product = Product::findOrFail($item->product_id);
+            $product->stock_prod += $item->cant_order_prod;
+            $product->save();
+        }
+
         $order->delete();
 
-        // return redirect()->route('orders.index');
         return 'exito';
     }
 
