@@ -62,7 +62,7 @@ class ProductController extends Controller
             'codigo' => [
                 'required',
                 Rule::unique('products', 'codigo')->ignore($request->id),
-                'max:10'
+                'max:13'
             ],
             'nombre_prod' => [
                 'required',
@@ -82,8 +82,10 @@ class ProductController extends Controller
         }
     }
 
-    public function show() {
-
+    // Se utiliza para agregar los productos al carrito
+    public function show($codigo) {
+        $product = Product::where('codigo', $codigo)->firstOrFail();
+        return $product;
     }
 
     public function destroy($id) {

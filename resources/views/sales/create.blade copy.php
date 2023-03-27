@@ -25,7 +25,16 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Producto</label>
-                                <input type="text" class="form-control" id="codigo" name="codigo" placeholder="Codigo de Producto" required>
+                                <select name="product_id" id="product_id" class="form-control select2" style="width: 100%;">
+                                    @foreach ($products as $product)
+                                        <option value="{{ $product->id }}" data-precio="{{ $product->precio_prod }}">{{ $product->nombre_prod }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <!-- /.form-group -->
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Cantidad</label>
+                                <input type="number" class="form-control" id="cant_order_prod" name="cant_order_prod" placeholder="Cantidad de Producto" min="1" value="1">
                             </div>
                             <!-- /.form-group -->
 
@@ -58,11 +67,11 @@
                         </div>
                     </div>
 
-                    {{-- <div class="row">
+                    <div class="row">
                         <div class="col-md-2">
                             <button type="button" id="agregar_item" class="btn btn-block btn-success">Agregar</button>
                         </div>
-                    </div> --}}
+                    </div>
                     <!-- /.row -->
                 
                 </div>
@@ -75,15 +84,16 @@
                         <div class="col-12 table-responsive">
                             <p class="lead">Fecha {{ date('d/m/Y') }}</p>
                             <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th>Producto</th>
-                                    <th>Cantidad</th>
-                                    <th>Precio</th>
-                                    <th>Acciones</th>
-                                </tr>
-                                </thead>
-                                <tbody id="items"></tbody>
+                            <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Precio</th>
+                                <th>Subtotal</th>
+                                <th>Acciones</th>
+                            </tr>
+                            </thead>
+                            <tbody id="items"></tbody>
                             </table>
                       </div>
                       <!-- /.col -->
@@ -127,44 +137,31 @@
             let carrito = [];
             let total=0;
             let credito;
-            let cant_carrito = 0;
 
-            $('#codigo').on('keyup', function() {
-                codigo = $(this).val();
-
-                if (codigo.length === 13) {
-                    $.ajax({
-                        type: 'get',
-                        url:`/products/${codigo}`,
-                        success:function(resultado) {
-                            if(resultado) {
-                                crearItem(resultado); // Envia por parametros el producto obtenido
-                                calcularTotal();
-                            }
-                        },
-                        error:function(resultado) {
-                            Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Algo salio mal!',
-                            footer: '<p>No se pudo encontrar el producto.</p>'
-                            })
-                        }
-                    });
-                }
-            });
-
-            function crearItem(product) {
+            $("#agregar_item").click(function() {
+                const product = $('#product_id  option:selected');
+                const cant_prod = $('#cant_order_prod').val();   
+                crearItem(product, cant_prod);
+                calcularTotal();
+            });  
+            
+            function crearItem(product, cant_prod) {
+                const precio = product.attr('data-precio')
                 const item = {
-                    ui_id: ++cant_carrito,
-                    product_id: product.id,
-                    nombre: product.nombre_prod,
-                    cant_sale_prod: 1,
-                    total_item: product.precio_prod.toFixed(2),
+                    product_id: product.val(),
+                    nombre: product.text(),
+                    cant_sale_prod: cant_prod,
+                    total_item: precio,
+                    subTotal: (cant_prod * precio).toFixed(2),
                 }
                 
-                carrito.push(item);
-                crearElement(item);
+
+                const busqueda = carrito.find((element) => element.product_id === item.product_id);
+                if(!busqueda) {
+                    carrito.push(item);
+                    // console.log(carrito);
+                    crearElement(item);
+                }
             }
 
             function crearElement(item) {
@@ -173,7 +170,8 @@
                 elemento += "<td><p>"+item.nombre+"</p></td>";
                 elemento += "<td><p>"+item.cant_sale_prod+"</p></td>";
                 elemento += "<td><p>$ "+item.total_item+"</p></td>";
-                elemento += "<td><button data-id='"+item.ui_id+"' class='btn btn-danger delete'>Eliminar</button></td>";
+                elemento += "<td><p>$ "+item.subTotal+"</p></td>";
+                elemento += "<td><button id='"+item.product_id+"' class='btn btn-danger delete'>Eliminar</button></td>";
 
                 
                 $(fila).append(elemento);
@@ -181,7 +179,7 @@
             }
 
             function calcularTotal() {
-                total = carrito.reduce((acumulador, item) => acumulador + Number(item.total_item), 0).toFixed(2);
+                total = carrito.reduce((acumulador, item) => acumulador + Number(item.subTotal), 0).toFixed(2);
                 $('#total').text(`$ ${total}`);
             }
 
@@ -241,9 +239,9 @@
 
             // Eliminar item generado dinamicamente
             $('body').on('click', '.delete' ,function() {
-                const id = parseInt($(this).attr('data-id'));
+                const id = $(this).attr('id');
                 const padre = $(this).closest('tr');
-                carrito = carrito.filter((element) => element.ui_id !== id);
+                carrito = carrito.filter((element) => element.product_id !== id);
                 calcularTotal();
                 padre.remove();
             });

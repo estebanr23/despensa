@@ -27,5 +27,13 @@ class DatabaseSeeder extends Seeder
         \App\Models\Product::factory(30)->create();
         \App\Models\Provider::factory(10)->create();
         \App\Models\Customer::factory(5)->create();
+
+        \App\Models\ItemStatus::factory()->create([
+            'nombre_status' => 'Pendiente'
+        ]);
+
+        \App\Models\ItemStatus::factory()->create([
+            'nombre_status' => 'Recibido'
+        ]);
     }
 }

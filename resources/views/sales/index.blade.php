@@ -108,7 +108,7 @@
                     if(items) {
                         items.forEach(item => {
                             let fila = $("<li class='list-group-item d-flex justify-content-between align-items-start'></li>");
-                            let elemento = "<div class='ms-2 me-auto'><div class='fw-bold'>"+item.nombre_prod+"</div>"+item.precio_prod+"</div>";
+                            let elemento = "<div class='ms-2 me-auto'><div class='fw-bold'>"+item.nombre_prod+"</div>$ "+item.precio_prod+"</div>";
                             elemento += "<span class='badge bg-primary rounded-pill'>"+item.cant_sale_prod+"</span>";
 
                             $(fila).append(elemento);

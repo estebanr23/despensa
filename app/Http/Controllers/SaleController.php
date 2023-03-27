@@ -22,10 +22,10 @@ class SaleController extends Controller
     }
 
     public function create() {
-        $products = Product::all();
+        // $products = Product::all();
         $customers = Customer::all();
 
-        return view('sales.create', compact('products', 'customers'));
+        return view('sales.create', compact('customers'));
     }
 
     public function store(Request $request) {
@@ -112,7 +112,7 @@ class SaleController extends Controller
 
         try {
             foreach ($items as $item) {
-                $product = Product::withTrashed()->where('idasasvsd', $item->product_id)->first();
+                $product = Product::withTrashed()->where('id', $item->product_id)->first();
                 $product->stock_prod += $item->cant_sale_prod;
                 $product->save();
             }
@@ -123,9 +123,7 @@ class SaleController extends Controller
         } catch (\Exception $e) {
             return 'error';
         }
-        
-        // return $items;
-        // return view('sales.index', compact('sales'));
+
     }
 
     public function generarVenta($id) {
