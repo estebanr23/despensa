@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\DB;
 
 class SaleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:eliminar ventas')->only('destroy');
+    }
+
     public function index() {
         $sales = Sale::where('credito', null)->get();
         return view('sales.index', compact('sales'));
@@ -51,14 +56,14 @@ class SaleController extends Controller
                 'total_sale' => $request->total_sale,
                 'credito' => 1,
                 'customer_id' => $cliente->id,
-                'user_id' => 1,
+                'user_id' => auth()->user()->id, // modificar
             ]);
 
         } else {
 
             $sale->fill([
                 'total_sale' => $request->total_sale,
-                'user_id' => 1,
+                'user_id' => auth()->user()->id, // modificar
             ]);
         }
         

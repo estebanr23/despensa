@@ -42,7 +42,10 @@
                                     @if ($item->status_id == 1)
                                         <button type="submit" class="estado-item" data-item = "{{ $item->id }}" title="Cambiar estado" style="color:#007bff; background:none; border:none"><i class="fa fa-sharp fa-solid fa-check"></i></button>
                                     @endif
-                                    <button type="submit" class="eliminar-item" data-item = "{{ $item->id }}" title="Eliminar" style="color:#007bff; background:none; border:none"><i class="fa fa-sharp fa-solid fa-trash"></i></button>
+
+                                    @can('eliminar pedidos')
+                                        <button type="submit" class="eliminar-item" data-item = "{{ $item->id }}" title="Eliminar" style="color:#007bff; background:none; border:none"><i class="fa fa-sharp fa-solid fa-trash"></i></button>    
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach

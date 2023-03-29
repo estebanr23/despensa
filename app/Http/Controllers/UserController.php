@@ -6,16 +6,26 @@ use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:agregar usuarios')->only('index');
+        $this->middleware('can:agregar usuarios')->only('create', 'store');
+        $this->middleware('can:agregar usuarios')->only('edit', 'update');
+        $this->middleware('can:agregar usuarios')->only('destroy');
+    }
+
     public function index() {
         $users = User::all();
         return view('users.index', compact('users'));
     }
 
     public function create() {
-        return view('users.create');
+        $roles = Role::all()->pluck('name');
+        return view('users.create', compact('roles'));
     }
 
     public function store(Request $request) {
@@ -24,12 +34,14 @@ class UserController extends Controller
             'user.required' => 'El usuario es requerido.',
             'user.unique' => 'El usuario ya existe.',
             'password.required' => 'La contraseña es requerida.',
+            "rol.required" => "El rol es requerido",
         ];
 
         $request->validate([
             "name" => "required",
             "user" => "required|unique:users,user",
             "password" => "required",
+            "rol" => "required",
         ], $messages);
 
         try {
@@ -38,6 +50,14 @@ class UserController extends Controller
                 "user" => $request->user,
                 "password" => Hash::make($request->password),
             ]);
+
+
+            if ($request->rol == "Administrador") {
+                $user->assignRole('Administrador');
+            } else {
+                $user->assignRole('Operario');
+            }
+
 
             return redirect()->route('users.index');
 

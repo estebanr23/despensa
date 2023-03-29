@@ -11,6 +11,12 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:eliminar pedidos')->only('destroy');
+        $this->middleware('can:eliminar pedidos')->only('destroyItem');
+    }
+
     public function index() {
         $orders = Order::all();
         return view('orders.index', compact('orders'));

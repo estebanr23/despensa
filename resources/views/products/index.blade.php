@@ -33,14 +33,15 @@
                                 <td>{{ $product->precio_prod }}</td>
                                 <td>{{ $product->stock_prod }}</td>
                                 <td>
-                                    <a href="{{ Route('products.show', $product->id) }}"><i class="fa fa-solid fa-eye"></i></a>
                                     <a href="{{ Route('products.edit', $product->id) }}" title="Editar"><i class="fa fa-sharp fa-solid fa-marker"></i></a>
                                     {{-- <form class="form-icon" action="{{ Route('products.destroy', $product->id) }}" method="POST">
                                         @csrf
                                         @method('delete')
                                         <button type="submit" title="Eliminar" class="btn-icon"><i class="fa fa-sharp fa-solid fa-trash"></i></button>
                                     </form> --}}
-                                    <button class="btn-icon eliminar-producto" title="Eliminar" data-id="{{ $product->id }}"><i class="fa fa-sharp fa-solid fa-trash"></i></button>
+                                    @can('eliminar productos')
+                                        <button class="btn-icon eliminar-producto" title="Eliminar" data-id="{{ $product->id }}"><i class="fa fa-sharp fa-solid fa-trash"></i></button>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach

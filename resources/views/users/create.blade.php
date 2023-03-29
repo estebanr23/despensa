@@ -48,6 +48,17 @@
                                     <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña">
                                 </div>
                                 <!-- /.form-group -->
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Rol</label>
+                                    <select class="form-control" id="rol" name="rol">
+                                        <option value="" selected disabled>-- Selecciones un Rol --</option>
+                                        @foreach ($roles as $rol)
+                                            <option value="{{ $rol }}">{{ $rol }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <!-- /.form-group -->
                             </div>
 
                             <div class="col-md-6">

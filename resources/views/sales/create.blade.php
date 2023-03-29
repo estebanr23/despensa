@@ -57,13 +57,6 @@
                             <!-- /.form-group -->
                         </div>
                     </div>
-
-                    {{-- <div class="row">
-                        <div class="col-md-2">
-                            <button type="button" id="agregar_item" class="btn btn-block btn-success">Agregar</button>
-                        </div>
-                    </div> --}}
-                    <!-- /.row -->
                 
                 </div>
                 <!-- /.card-body -->

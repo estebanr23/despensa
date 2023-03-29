@@ -59,7 +59,9 @@
                                 <td>{{ $credit->user->name }}</td>
                                 <td>
                                     <a id="{{ $credit->id }}" class="openBtn"><i class="fa fa-solid fa-eye"></i></a>
-                                    <button class="btn-icon eliminar-venta" title="Eliminar" data-id="{{ $credit->id }}"><i class="fa fa-sharp fa-solid fa-trash"></i></button>
+                                    @can('eliminar ventas')
+                                        <button class="btn-icon eliminar-venta" title="Eliminar" data-id="{{ $credit->id }}"><i class="fa fa-sharp fa-solid fa-trash"></i></button>
+                                    @endcan
                                     <button class="btn-icon generar-venta" title="Generar venta" data-id="{{ $credit->id }}"><i class="fa fa-solid fa-user-check"></i></button>
                                 </td>
                             </tr>

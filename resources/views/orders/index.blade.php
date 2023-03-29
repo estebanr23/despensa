@@ -36,7 +36,9 @@
                                         @method('delete')
                                         <button type="submit" title="Eliminar" class="btn-icon"><i class="fa fa-sharp fa-solid fa-trash"></i></button>
                                     </form> --}}
-                                    <button class="btn-icon eliminar-pedido" title="Eliminar" data-id="{{ $order->id }}"><i class="fa fa-sharp fa-solid fa-trash"></i></button>
+                                    @can('eliminar pedidos')
+                                        <button class="btn-icon eliminar-pedido" title="Eliminar" data-id="{{ $order->id }}"><i class="fa fa-sharp fa-solid fa-trash"></i></button>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach

@@ -66,7 +66,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Stock</label>
-                                    <input type="number" class="form-control" id="stock_prod" name="stock_prod" placeholder="Cantidad" value="{{ old('stock_prod', $product->stock_prod) }}" required>
+                                    <input type="number" class="form-control" id="stock_prod" name="stock_prod" placeholder="Cantidad" value="{{ old('stock_prod', $product->stock_prod) }}" disabled>
                                 </div>
                                 <!-- /.form-group -->
         
@@ -113,7 +113,7 @@
                 nombre_prod: $('#nombre_prod').val(),
                 category_id: $('#category_id').val(),
                 precio_prod: $('#precio_prod').val(),
-                stock_prod: $('#stock_prod').val(),
+                // stock_prod: $('#stock_prod').val(),
                 stock_prod_min: $('#stock_prod_min').val(),
             }
 

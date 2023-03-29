@@ -12,6 +12,11 @@ use Illuminate\Database\QueryException;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:eliminar productos')->only('destroy');
+    }
+
     public function index() {
         $products = Product::all();
         return view('products.index', compact('products'));
@@ -23,13 +28,6 @@ class ProductController extends Controller
     }
 
     public function store(ProductStore $request) {
-
-        /* $request->validate([
-            'codigo' => 'required|unique:products,codigo|max:10',
-            'nombre_prod' => 'required|string|unique:products,nombre_prod|max:60',
-            'precio_prod' => 'required|numeric',
-            'stock_prod' => 'required|integer',
-        ]); */
 
         try {
             $product = Product::create($request->all());
@@ -54,7 +52,6 @@ class ProductController extends Controller
             'nombre_prod.required' => 'El nombre es requerido.',
             'nombre_prod.unique' => 'El nombre ya existe.',
             'precio_prod.required' => 'El precio es requerido.',
-            'stock_prod.required' => 'La cantidad es requerida.',
         ];
         
         // Para validar un campo unico sin que arroje error al actualizar el campo por lo que ya existe ese codigo o nombre en la tabla de product
@@ -70,10 +67,8 @@ class ProductController extends Controller
                 'max:60'
             ],
             'precio_prod' => 'required|numeric',
-            'stock_prod' => 'required|integer',
         ], $messages)->validate();
 
-        
         try {
             $product->update($request->all());
             return 'exito';

@@ -235,32 +235,34 @@
             </li>
 
             <!-- Usuarios -->
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-user"></i>
-                <p>
-                  Usuarios
-                  <i class="fas fa-chevron-circle-down right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="{{ Route('users.create') }}" class="nav-link">
-                    <i class="fas fa-angle-right nav-icon"></i>
-                    <p>Agregar Usuario</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="{{ Route('users.index') }}" class="nav-link">
-                    <i class="fas fa-angle-right nav-icon"></i>
-                    <p>Lista de Usuarios</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
+            @role('Administrador')
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-user"></i>
+                  <p>
+                    Usuarios
+                    <i class="fas fa-chevron-circle-down right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ Route('users.create') }}" class="nav-link">
+                      <i class="fas fa-angle-right nav-icon"></i>
+                      <p>Agregar Usuario</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ Route('users.index') }}" class="nav-link">
+                      <i class="fas fa-angle-right nav-icon"></i>
+                      <p>Lista de Usuarios</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            @endrole
 
             <!-- Roles -->
-            <li class="nav-item">
+            {{-- <li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-tools"></i>
                 <p>
@@ -282,7 +284,7 @@
                   </a>
                 </li>
               </ul>
-            </li>
+            </li> --}}
 
             <!-- Informes -->
 
