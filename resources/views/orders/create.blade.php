@@ -127,7 +127,6 @@
                 const busqueda = carrito.find((element) => element.product_id === item.product_id);
                 if(!busqueda) {
                     carrito.push(item);
-                    console.log(carrito);
                     crearElement(item);
                 }
             }
@@ -170,6 +169,10 @@
                                 icon: 'success',
                                 title: 'Pedido registrado'
                                 })
+
+                                setTimeout(() => {
+                                    location.reload();
+                                }, 1000);
                         } else {
                             Swal.fire({
                             icon: 'error',
@@ -179,6 +182,14 @@
                             })
                         } 
                         
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Algo salio mal!',
+                            footer: '<p>Comuniquese con el administrador.</p>'
+                            })
                     }
                 });
             });

@@ -96,6 +96,10 @@
                             'Pedido Eliminado',
                             'success'
                             )
+
+                            setTimeout(() => {
+                                location.reload();
+                            }, 1000);
                         } else {
                             Swal.fire({
                             icon: 'error',

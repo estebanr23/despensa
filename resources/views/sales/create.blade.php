@@ -198,7 +198,6 @@
                     data: {carrito: carrito, credito: credito, total_sale: total, cliente: cliente, _token: token},
                     url:"{{ Route('sales.store') }}",
                     success: function(respuesta) {
-
                         if(respuesta === 'exito') { 
                             const Toast = Swal.mixin({
                                 toast: true,
@@ -216,6 +215,20 @@
                                 icon: 'success',
                                 title: 'Venta Exitosa'
                                 })
+
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 1000);
+
+                                // Limpiar formulario y carrito
+                                // $('#codigo').val('');
+                                // $('#check-fiado').prop('checked', false);
+                                // $('#datos_cliente').hide();
+                                // $('#nombre_cliente').val('');
+                                // $('#items').empty();
+                                // $('#total').text('');
+                                // carrito = [];
+                                
                         } else {
                             Swal.fire({
                             icon: 'error',
@@ -225,6 +238,17 @@
                             })
                         } 
                             
+                    },
+                    error: function(respuesta) {
+                        const { responseJSON: { errors } } = respuesta;
+                        // console.log(respuesta);
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Algo salio mal!',
+                            footer: '<p>Comuniquese con el administrador.</p>'
+                        })
                     }
                 });
 

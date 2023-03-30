@@ -148,9 +148,8 @@
 
                     if(errors) {
                         for(const e in errors) {
-                        // console.log(errors[e]);
-                        element = `<li>${errors[e]}</li>`;
-                        msg_error.append(element);
+                            element = `<li>${errors[e]}</li>`;
+                            msg_error.append(element);
                         }
 
                         $('.alert-danger').show();

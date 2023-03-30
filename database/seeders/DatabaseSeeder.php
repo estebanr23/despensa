@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
         Permission::create(['name' => 'crear fiados']);
         Permission::create(['name' => 'eliminar pedidos']);
 
-        Permission::create(['name' => 'acciones productos']);
+        Permission::create(['name' => 'eliminar productos']);
         Permission::create(['name' => 'acciones categorias']);
 
         Permission::create(['name' => 'agregar usuarios']);

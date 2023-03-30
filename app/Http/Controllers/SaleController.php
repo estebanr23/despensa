@@ -34,62 +34,71 @@ class SaleController extends Controller
     }
 
     public function store(Request $request) {
-        // return $request->credito;
+        // return $request;
 
         $items = $request->carrito;
 
-        // *** Agregar validacion de datos ***
+        // Agregando validacion de datos 
+        if(empty($items) || $request->total_sale == '') return 'error';
 
-        // *** Agregar exception ***
-        $sale = new Sale();
+        // Agregando exception 
+        try {
+            $sale = new Sale();
 
-        if($request->credito) {
+            // Pregunta si es fiado o venta
+            if($request->credito) {
 
-            $cliente = Customer::find($request->cliente);
-            if(!$cliente) {
-                $cliente = new Customer();
-                $cliente->nombre_cliente = $request->cliente;
-                $cliente->save();
+                $cliente = Customer::find($request->cliente);
+                if(!$cliente) {
+                    $cliente = new Customer();
+                    $cliente->nombre_cliente = $request->cliente;
+                    $cliente->save();
+                }
+
+                $sale->fill([
+                    'total_sale' => $request->total_sale,
+                    'credito' => 1,
+                    'customer_id' => $cliente->id,
+                    'user_id' => auth()->user()->id,
+                ]);
+
+            } else {
+
+                $sale->fill([
+                    'total_sale' => $request->total_sale,
+                    'user_id' => auth()->user()->id,
+                ]);
             }
 
-            $sale->fill([
-                'total_sale' => $request->total_sale,
-                'credito' => 1,
-                'customer_id' => $cliente->id,
-                'user_id' => auth()->user()->id, // modificar
-            ]);
+            $sale->save();
 
-        } else {
+            // Crear items de venta o fiado
+            foreach ($items as $item) {
+                ItemSale::create([
+                    'cant_sale_prod' => $item['cant_sale_prod'],
+                    'total_item' => $item['total_item'],
+                    'product_id' => $item['product_id'],
+                    'sale_id' => $sale->id,
+                ]);
+                
+            }
 
-            $sale->fill([
-                'total_sale' => $request->total_sale,
-                'user_id' => auth()->user()->id, // modificar
-            ]);
+            // Descontar Stock
+            $new_sale = Sale::find($sale->id);
+            $new_items = $new_sale->itemsSale;
+            foreach ($new_items as $i) {
+                $product = Product::find($i->product_id);
+                $product->stock_prod -= $i->cant_sale_prod;
+                $product->save();
+            }
+
+            return 'exito';
+
+        } catch (\Exception $e) {
+
+            return $e;
         }
         
-        $sale->save();
-
-        // *** Agregar exception ***
-        foreach ($items as $item) {
-            ItemSale::create([
-                'cant_sale_prod' => $item['cant_sale_prod'],
-                'total_item' => $item['total_item'],
-                'product_id' => $item['product_id'],
-                'sale_id' => $sale->id,
-            ]);
-            
-        }
-
-        // Descontar Stock
-        $new_sale = Sale::find($sale->id);
-        $new_items = $new_sale->itemsSale;
-        foreach ($new_items as $i) {
-            $product = Product::find($i->product_id);
-            $product->stock_prod -= $i->cant_sale_prod;
-            $product->save();
-        }
-
-        return 'exito';
     }
 
     public function edit() {

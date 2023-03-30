@@ -89,7 +89,6 @@
                 success: function(respuesta) {
                     if(respuesta === 'exito') {
                         fila.remove();
-                        console.log(respuesta); // eliminar clg
                     }        
                 }
             });
@@ -121,6 +120,10 @@
                                 'Item Eliminado',
                                 'success'
                                 )
+
+                            setTimeout(() => {
+                                location.reload();
+                            }, 1000);
                         } else {
                             Swal.fire({
                                 icon: 'error',
@@ -150,7 +153,6 @@
                 type: 'get',
                 url: '/orders/cargarItems/'+id,
                 success: function(respuesta) {
-                    console.log(respuesta);
                     location.reload();
                 }
             });
@@ -158,7 +160,6 @@
 
         // Comprobar estado de pedidos para deshabilitar boton en caso que esten todos Recibidos
         elemento = $('span.order-pendiente').length;
-        console.log(elemento);
         if(!elemento) {
             $('#cargar_pedido_completo').attr('disabled', 'disabled');
         }

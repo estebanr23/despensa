@@ -15,7 +15,7 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="max-height:450px; overflow-y: scroll;">
                     <ol class="list-group list-group-numbered" id="items-venta"></ol>
                 </div>
                 <div class="modal-footer">
@@ -144,6 +144,10 @@
                             'Venta Eliminada',
                             'success'
                             )
+
+                            setTimeout(() => {
+                                location.reload();
+                            }, 1000);
                         } else {
                             Swal.fire({
                             icon: 'error',
@@ -154,7 +158,6 @@
                         } 
                     },
                     error:function(respuesta) {
-                        console.log(respuesta)
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
