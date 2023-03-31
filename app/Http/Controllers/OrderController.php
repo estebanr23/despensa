@@ -52,10 +52,10 @@ class OrderController extends Controller
     }
 
     public function edit($id) {
-        $order = Order::find($id);
+        $order = Order::findOrFail($id);
         $items = $order->itemsOrder;
-
-        return view('orders.edit', compact('items'));
+        
+        return view('orders.edit', compact('items', 'order'));
     }
 
     public function update() {
@@ -68,9 +68,19 @@ class OrderController extends Controller
 
     // Eliminar un item de un pedido
     public function destroyItem($id) {
-        $item = ItemOrder::find($id);
-        $item->delete();
+        $item = ItemOrder::findOrFail($id);
 
+        // 1 - Pendiente
+        // 2 - Recibido
+
+        if ($item->status_id == 2) { // Si el item esta recibido se debe descontar del stock
+            $product = Product::findOrFail($item->product_id);
+            $product->stock_prod -= $item->cant_order_prod;
+            $product->save();
+        }
+        
+        $item->delete();
+        
         return "exito";
     }
 
@@ -78,29 +88,28 @@ class OrderController extends Controller
     public function cambiarEstado($id) {
         $estado = ItemStatus::where('nombre_status', '=', 'Recibido')->first();
 
-        $item = ItemOrder::find($id);
+        $item = ItemOrder::findOrFail($id);
         $item->status_id = $estado->id;
-        // $item->save();
 
-        // *** Agregar excepcion ***
-        $product = Product::find($item->product_id);
+        // Agregando excepcion
+        $product = Product::findOrFail($item->product_id);
         $product->stock_prod += $item->cant_order_prod;
         $product->save();
 
-        // *** Agregar excepcion ***
+        // Agregando excepcion
         $item->save();
 
         return 'exito';
     }
 
-    // Elimar un venta con sus items relacionados
+    // Elimar un pedido con sus items relacionados
     public function destroy($id) {
         $order = Order::findOrFail($id);
         $items = $order->itemsOrder;
 
         foreach ($items as $item) {
             $product = Product::findOrFail($item->product_id);
-            $product->stock_prod += $item->cant_order_prod;
+            $product->stock_prod -= $item->cant_order_prod;
             $product->save();
         }
 
@@ -111,14 +120,23 @@ class OrderController extends Controller
 
     // Metodo para indicar que todos los items de un pedido fueron recibidos y sumar actualizar el stock
     public function cargarItems($id) {
-        $order = Order::find($id);
+        $order = Order::findOrFail($id);
         $items = $order->itemsOrder;
 
-        $estado = ItemStatus::where('nombre_status', '=', 'Recibido')->first();
-
+        // 1 - Pendiente
+        // 2 - Recibido
         foreach ($items as $item) {
-            $item->status_id = $estado->id;
-            $item->save();
+
+            if ($item->status_id == 1) { // Consulto si el item esta pendiente
+
+                $product = Product::findOrFail($item->product_id);
+                $product->stock_prod += $item->cant_order_prod;
+                $product->save();
+
+                $item->status_id = 2; // Paso el item a recibido
+                $item->save();
+            }
+    
         }
 
         return 'exito';

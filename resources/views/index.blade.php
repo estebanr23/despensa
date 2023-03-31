@@ -15,7 +15,7 @@
         <div class="icon">
           <i class="ion ion-bag"></i>
         </div>
-        <a href="{{ Route('products.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        <a href="{{ Route('products.index') }}" class="small-box-footer">Mas info <i class="fas fa-arrow-circle-right"></i></a>
       </div>
     </div>
     <!-- ./col -->
@@ -30,7 +30,7 @@
         <div class="icon">
           <i class="ion ion-bag"></i>
         </div>
-        <a href="{{ Route('products.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        <a href="{{ Route('products.index') }}" class="small-box-footer">Mas info <i class="fas fa-arrow-circle-right"></i></a>
       </div>
     </div>
     <!-- ./col -->
@@ -45,7 +45,7 @@
         <div class="icon">
           <i class="ion ion-stats-bars"></i>
         </div>
-        <a href="{{ Route('sales.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        <a href="{{ Route('sales.index') }}" class="small-box-footer">Mas info <i class="fas fa-arrow-circle-right"></i></a>
       </div>
     </div>
     <!-- ./col -->
@@ -60,7 +60,7 @@
         <div class="icon">
           <i class="ion ion-person-add"></i>
         </div>
-        <a href="{{ Route('sales.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        <a href="{{ Route('sales.index') }}" class="small-box-footer">Mas info <i class="fas fa-arrow-circle-right"></i></a>
       </div>
     </div>
     <!-- ./col -->
@@ -75,7 +75,7 @@
         <div class="icon">
           <i class="ion ion-pie-graph"></i>
         </div>
-        <a href="{{ Route('sales.credits') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        <a href="{{ Route('sales.credits') }}" class="small-box-footer">Mas info <i class="fas fa-arrow-circle-right"></i></a>
       </div>
     </div>
     <!-- ./col -->
@@ -90,7 +90,7 @@
         <div class="icon">
           <i class="ion ion-pie-graph"></i>
         </div>
-        <a href="{{ Route('sales.credits') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        <a href="{{ Route('sales.credits') }}" class="small-box-footer">Más info <i class="fas fa-arrow-circle-right"></i></a>
       </div>
     </div>
     <!-- ./col -->

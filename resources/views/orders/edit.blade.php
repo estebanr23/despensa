@@ -12,7 +12,7 @@
                 <div class="card-header">
                 <h3 class="card-title" style="padding-top: 10px">Productos de Pedido</h3>
                 <button type="button" id="cargar_pedido_completo" class="btn btn-success" style="float: right">Cargar Todo</button>
-                <input type="hidden" class="input-hidden" data-id="{{ $items[0]->order_id }}">
+                <input type="hidden" class="input-hidden" data-id="{{ $order->id }}">
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -26,29 +26,30 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($items as $item)
-                            <tr>
-                                <td>{{ $item->product->nombre_prod }}</td>
-                                <td>{{ $item->cant_order_prod }}</td>
+                        @if ($items)
+                            @foreach ($items as $item)
+                                <tr>
+                                    <td>{{ $item->product->nombre_prod }}</td>
+                                    <td>{{ $item->cant_order_prod }}</td>
 
-                                {{-- @if ($item->status_id == 1) --}}
-                                @if ($item->status->nombre_status === "Pendiente")
-                                    <td><span class="order-pendiente">Pendiente</span></td>
-                                @else
-                                    <td><span class="order-recibido">Recibido</span></td>
-                                @endif
-                                
-                                <td>
-                                    @if ($item->status_id == 1)
-                                        <button type="submit" class="estado-item" data-item = "{{ $item->id }}" title="Cambiar estado" style="color:#007bff; background:none; border:none"><i class="fa fa-sharp fa-solid fa-check"></i></button>
+                                    @if ($item->status->nombre_status === "Pendiente")
+                                        <td><span class="order-pendiente">Pendiente</span></td>
+                                    @else
+                                        <td><span class="order-recibido">Recibido</span></td>
                                     @endif
+                                    
+                                    <td>
+                                        @if ($item->status_id == 1)
+                                            <button type="submit" class="estado-item" data-item = "{{ $item->id }}" title="Cambiar estado" style="color:#007bff; background:none; border:none"><i class="fa fa-sharp fa-solid fa-check"></i></button>
+                                        @endif
 
-                                    @can('eliminar pedidos')
-                                        <button type="submit" class="eliminar-item" data-item = "{{ $item->id }}" title="Eliminar" style="color:#007bff; background:none; border:none"><i class="fa fa-sharp fa-solid fa-trash"></i></button>    
-                                    @endcan
-                                </td>
-                            </tr>
-                        @endforeach
+                                        @can('eliminar pedidos')
+                                            <button type="submit" class="eliminar-item" data-item = "{{ $item->id }}" title="Eliminar" style="color:#007bff; background:none; border:none"><i class="fa fa-sharp fa-solid fa-trash"></i></button>    
+                                        @endcan
+                                    </td>
+                                </tr>
+                            @endforeach  
+                        @endif
                     </tbody>
                     <tfoot>
                         <tr>
@@ -82,16 +83,51 @@
             const id = $(this).attr('data-item');
             token = "{{csrf_token()}}";
 
-            $.ajax({
-                type: 'delete',
-                url: '/orders/destroyItem/'+id,
-                data: {_token:token},
-                success: function(respuesta) {
-                    if(respuesta === 'exito') {
-                        fila.remove();
-                    }        
-                }
-            });
+            Swal.fire({
+                title: 'Eliminar item?',
+                text: "Eliminar el item seleccionado puede modificar el stock",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, agregar'
+            }).then((result) => {
+
+                if (!result.isConfirmed) return;
+
+                $.ajax({
+                    type: 'delete',
+                    url: '/orders/destroyItem/'+id,
+                    data: {_token:token},
+                    success: function(respuesta) {
+                        if(respuesta === 'exito') {
+                            Swal.fire(
+                                'Correcto',
+                                'Item Eliminado',
+                                'success'
+                                )
+
+                            fila.remove();
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Algo salio mal!',
+                                footer: '<p>Comuniquese con el administrador.</p>'
+                                })
+                        }        
+                    },
+                    error:function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Algo salio mal!',
+                            footer: '<p>Comuniquese con el administrador.</p>'
+                            })
+                    }
+                });
+            
+            })
         });
 
         // Cambiar estado de un item de pedido

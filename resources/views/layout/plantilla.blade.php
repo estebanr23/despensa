@@ -74,14 +74,14 @@
       <div class="user-panel mt-3 pb-3 mb-3 d-flex div-user">
         <i class="nav-icon fas fa-user"></i>
         <div class="info">
-          <a href="#" class="d-block">{{ auth()->user()->name }}</a>
+          <p href="#" class="d-block mb-0">{{ auth()->user()->name }}</p>
         </div>
       </div>
 
       <!-- SidebarSearch Form -->
       <div class="form-inline">
         <div class="input-group" data-widget="sidebar-search">
-          <input class="form-control form-control-sidebar form-search-edit" type="search" placeholder="Search" aria-label="Search">
+          <input class="form-control form-control-sidebar form-search-edit" style="color:black;" type="search" placeholder="Buscar" aria-label="Search">
           <div class="input-group-append">
             <button class="btn btn-sidebar">
               <i class="fas fa-search fa-fw"></i>
@@ -306,7 +306,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+              <li class="breadcrumb-item"><a href="{{ Route('dashboard') }}">Inicio</a></li>
               <li class="breadcrumb-item active">Dashboard</li>
             </ol>
           </div><!-- /.col -->
@@ -331,7 +331,7 @@
     <strong>Copyright &copy; {{ date('Y') }} DespensaApp.</strong>
     Todos los derechos reservados
     <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 3.2.0
+      <b>Version</b> 1.0
     </div>
   </footer>
 
